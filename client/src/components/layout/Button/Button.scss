@@ -1,0 +1,23 @@
+button {
+  background-color: rgb(51,51,51);
+  color: white;
+  outline: none;
+  border: unset;
+  transition: transform ease-in .1s;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+
+  &.disabled {
+    background-color: rgb(175, 175, 175);
+    pointer-events: none;
+    cursor: not-allowed !important;
+  }
+
+  &:active {
+    transform: translateY(-4px);
+  }
+}
+
+.google-register-button {
+  background-color: white;
+  color: black;
+}

@@ -1,0 +1,36 @@
+@import "../../../assets/variables.scss";
+
+
+#navbar {
+  background-color: $bg-primary;
+  padding: 20px;
+  
+  .navbar-nav {
+    .nav-item a {
+      color: white;
+      transition: all .4s ease-in;
+      padding: 24px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.navbar-dark {
+  .navbar-brand {
+    margin-left: 40px;
+    font-size: 28px;
+    user-select: none;
+    pointer-events: none;
+  }
+} 
+
+@media only screen and (min-width: 991px) {
+  #items {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

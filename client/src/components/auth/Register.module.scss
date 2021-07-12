@@ -1,0 +1,23 @@
+@import "../../assets/variables.scss";
+
+.register-container {
+  flex: 1;
+  background-color: rgb(247,245,247);
+  color: rgb(46,45,47);
+  order: 2;
+}
+
+.image-container {
+  img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 60%;
+  }
+}
+
+.control.invalid input {
+  border-color: crimson;
+  background: #fbdada;
+}
+

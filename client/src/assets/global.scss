@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import "./variables.scss";
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  // display: grid;
+  // place-items: center;
+  text-align: center;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+a {
+  color: black !important;
+}
+
+input, button {
+  width: $primary-width;
+  outline: unset;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: $primary-radius !important;
+  padding: 10px;
+}
+
+.flex-box-container {
+  display: flex;
+  height: 100vh;
+}
+
+.titles-container {
+  margin-top: 15%;
+  h1 {
+    font-weight: 700;
+  }
+
+  p {
+    opacity: .7;
+  }
+}
+
+.form-container {
+  form {
+    label {
+      width: 100%;
+      font-weight: 400;
+    }
+
+    .error-message-container {
+      pointer-events: none;
+      user-select: none;
+      .error-message {
+        background-color: crimson;
+        color: white;
+        width: $primary-width;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        padding: $primary-padding;
+      }
+    }
+  }
+}
+
+.empty-flex-box {
+  flex: 1;
+  background-color: rgb(255,255,255);
+  color: rgb(46,45,47);
+  background-image: url("https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=941&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
