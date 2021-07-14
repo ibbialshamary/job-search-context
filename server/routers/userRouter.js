@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
     if (!existingUser) {
       return res
         .status(401)
-        .json({ errorMessage: "Invalid username or password" });
+        .json({ errorMessage: "Invalid email or password" });
     }
 
     const passwordCorrect = await bcrypt.compare(
@@ -95,7 +95,7 @@ router.post("/login", async (req, res) => {
     if (!passwordCorrect) {
       return res
         .status(401)
-        .json({ errorMessage: "Invalid username or password" });
+        .json({ errorMessage: "Invalid email or password" });
     }
 
     // log in the user

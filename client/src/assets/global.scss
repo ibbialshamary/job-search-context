@@ -48,9 +48,14 @@ input, button {
       font-weight: 400;
     }
 
+    input {
+      margin-bottom: $primary-margin;
+    }
+
     .error-message-container {
       pointer-events: none;
       user-select: none;
+      margin-top: $primary-margin;
       .error-message {
         background-color: crimson;
         color: white;

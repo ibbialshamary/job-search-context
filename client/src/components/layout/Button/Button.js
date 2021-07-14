@@ -3,7 +3,7 @@ import classes from "./Button.scss";
 
 const Button = (props) => {
   return (
-    <button className={props.class} type={props.type}>
+    <button onClick={props.onClick} className={props.class} type={props.type}>
       {props.children}
     </button>
   );

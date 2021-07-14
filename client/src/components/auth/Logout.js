@@ -10,7 +10,7 @@ const Logout = () => {
   const logout = async () => {
     await axios.get("http://localhost:5000/authenticate/logout");
     await getLoggedIn();
-    history.push("/");
+    history.push("/login");
   };
 
   return <button onClick={logout}>Logout</button>;

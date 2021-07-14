@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import AuthContext from "../../context/AuthContext";
+import AuthContext from "../../../context/AuthContext";
 import classes from "./Register.module.scss";
 import { Link } from "react-router-dom";
-import Button from "../layout/Button/Button";
+import Button from "../../layout/Button/Button";
 import { useHistory } from "react-router";
 
 const Register = () => {
@@ -23,6 +23,8 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
 
+  const [joinButtonText, setJoinButtonText] = useState("Join");
+
   // context
   const { getLoggedIn } = useContext(AuthContext);
 
@@ -35,19 +37,25 @@ const Register = () => {
   const passwordChangeHandler = (e) => {
     setPassword(e.target.value);
     setPasswordIsValid(email.includes("@") && e.target.value.trim().length > 6);
-  };  
-  
+  };
+
   const verifyPasswordChangeHandler = (e) => {
     setVerifyPassword(e.target.value);
-    setVerifyPasswordIsValid(email.includes("@") && e.target.value.trim().length > 6);
+    setVerifyPasswordIsValid(
+      email.includes("@") && e.target.value.trim().length > 6
+    );
   };
 
   const validateEmailHandler = () => {
-    setEmailIsValid(email.includes("@"));
+    setEmailIsValid(email.includes("@") && email.trim().length > 6);
   };
 
   const validatePasswordHandler = () => {
     setPasswordIsValid(password.trim().length > 6);
+  };
+
+  const validateVerifyPasswordHandler = () => {
+    setVerifyPasswordIsValid(verifyPassword.trim().length > 6);
   };
 
   const register = async (e) => {
@@ -66,7 +74,7 @@ const Register = () => {
       );
       // commented out as user should be redirected to login page rather than be logged in
       // getLoggedIn();
-      history.push("/login")
+      history.push("/login");
     } catch (error) {
       setErrorMessage(error.response.data.errorMessage);
     }
@@ -76,15 +84,24 @@ const Register = () => {
     const identifier = setTimeout(() => {
       console.log("Checking form validity");
       setFormIsValid(
-        email.length > 5 && password.length > 5 && verifyPassword.length > 5
+        email.includes("@") &&
+          email.trim().length > 6 &&
+          password.length > 6 &&
+          verifyPassword.length > 6
       );
+      if (formIsValid) {
+        setJoinButtonText("Join");
+      } else {
+        setJoinButtonText("Please correct required fields");
+      }
     }, 500);
 
     return () => {
       console.log("Clean up");
+      setJoinButtonText("Checking form validity");
       clearTimeout(identifier);
     };
-  }, [email, password, verifyPassword]);
+  }, [email, formIsValid, password, verifyPassword]);
 
   return (
     <div className="flex-box-container">
@@ -96,7 +113,7 @@ const Register = () => {
               Already have an account? <Link to="/login">Login</Link>
             </p>
           </div>
-          <br />
+
           <div className="google-register-container">
             <Button class="google-register-button">
               <img
@@ -106,10 +123,8 @@ const Register = () => {
               />{" "}
               Sign up with Google
             </Button>
-            <br />
-            <br />
+
             <p>or</p>
-            <br />
           </div>
           <form onSubmit={register}>
             <div
@@ -118,7 +133,6 @@ const Register = () => {
               }`}
             >
               <label htmlFor="email">Email Address</label>
-              <br />
               <input
                 id="email"
                 type="email"
@@ -127,8 +141,6 @@ const Register = () => {
                 onBlur={validateEmailHandler}
                 value={email}
               />
-              <br />
-              <br />
             </div>
 
             <div
@@ -137,7 +149,7 @@ const Register = () => {
               }`}
             >
               <label htmlFor="password">Password</label>
-              <br />
+
               <input
                 id="password"
                 type="password"
@@ -146,8 +158,6 @@ const Register = () => {
                 onBlur={validatePasswordHandler}
                 value={password}
               />
-              <br />
-              <br />
             </div>
 
             <div
@@ -157,24 +167,20 @@ const Register = () => {
             >
               {" "}
               <label htmlFor="verify-password">Verify Password</label>
-              <br />
               <input
                 id="verify-password"
                 type="password"
                 placeholder="Confirm Password"
                 onChange={verifyPasswordChangeHandler}
-                onBlur={validatePasswordHandler}
+                onBlur={validateVerifyPasswordHandler}
                 value={verifyPassword}
               />
-              <br />
-              <br />
             </div>
 
             <Button type="submit" class={!formIsValid ? "disabled" : null}>
-              Join
+              {joinButtonText}
             </Button>
-            <br />
-            <br />
+
             <div className="error-message-container">
               {errorMessage && <p className="error-message">{errorMessage}</p>}
             </div>
