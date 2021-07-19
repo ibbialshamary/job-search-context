@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../../layout/Button/Button";
 import Modal from "../../layout/Modal/Modal";
+import classes from "./ForgottenPassword.module.scss";
 
 const ForgottenPassword = (props) => {
   return (

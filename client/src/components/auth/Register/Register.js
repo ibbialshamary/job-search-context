@@ -1,10 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
 import classes from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import Button from "../../layout/Button/Button";
 import { useHistory } from "react-router";
+
+// reducer methods
+const emailReducer = () => {};
 
 const Register = () => {
   // variables
@@ -23,7 +26,12 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const [joinButtonText, setJoinButtonText] = useState("Join");
+  const [joinButtonText, setJoinButtonText] = useState(
+    "Checking form validity"
+  );
+
+  // reducer
+  const [emailState, dispatchEmail] = useReducer();
 
   // context
   const { getLoggedIn } = useContext(AuthContext);
@@ -92,7 +100,7 @@ const Register = () => {
       if (formIsValid) {
         setJoinButtonText("Join");
       } else {
-        setJoinButtonText("Please correct required fields");
+        setJoinButtonText("Please correct highlighted fields");
       }
     }, 500);
 
@@ -126,7 +134,7 @@ const Register = () => {
 
             <p>or</p>
           </div>
-          <form onSubmit={register}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div
               className={`${classes.control} ${
                 emailIsValid === false ? classes.invalid : ""
@@ -149,7 +157,6 @@ const Register = () => {
               }`}
             >
               <label htmlFor="password">Password</label>
-
               <input
                 id="password"
                 type="password"
@@ -177,7 +184,11 @@ const Register = () => {
               />
             </div>
 
-            <Button type="submit" class={!formIsValid ? "disabled" : null}>
+            <Button
+              type="submit"
+              class={!formIsValid ? "disabled" : null}
+              onClick={register}
+            >
               {joinButtonText}
             </Button>
 

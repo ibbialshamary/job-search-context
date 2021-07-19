@@ -1,6 +1,14 @@
 .login-container {
-  flex: 1;
-  background-color: rgb(247,245,247);
-  color: rgb(46,45,47);
-  order: 2;
+  // flex: 1;
+  // background-color: rgb(247,245,247);
+  // color: rgb(46,45,47);
+  // order: 2;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.control.invalid input {
+  border-bottom: 5px solid crimson;
 }
