@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 @import "./variables.scss";
 
+* {
+  font-family: 'Poppins', sans-serif !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 p {
   margin: 0;
   padding: 0;
@@ -10,11 +17,10 @@ body {
   // display: grid;
   // place-items: center;
   text-align: center;
-  font-family: 'Poppins', sans-serif !important;
 }
 
 a {
-  color: black !important;
+  color: black;
 }
 
 input, button {
@@ -27,7 +33,7 @@ input, button {
 
 .flex-box-container {
   display: flex;
-  height: 100vh;
+  height: 94vh;
 }
 
 .titles-container {
@@ -44,10 +50,13 @@ input, button {
 .form-container.login {
   background-color: rgb(250, 250, 250) !important;
   border-radius: $primary-radius;
-  padding: $primary-padding;
+  padding: $primary-padding * 4;
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .form-container {
+  
   form {
     label {
       width: 100%;
@@ -75,7 +84,7 @@ input, button {
   }
 }
 
-.empty-flex-box {
+#welcomeMessageFlexBox {
   flex: 1;
   background-color: rgb(255,255,255);
   color: rgb(46,45,47);

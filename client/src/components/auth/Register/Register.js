@@ -198,8 +198,9 @@ const Register = () => {
           </form>
         </div>
       </div>
-      <div className="empty-flex-box">
-        <div className="titles-container">
+
+      <div className={classes["welcome-message-container"]} id="welcomeMessageFlexBox">
+        <div className={classes["titles-container"]}>
           <h1>Basra</h1>
           <p>The Best Job Hunting Service</p>
         </div>

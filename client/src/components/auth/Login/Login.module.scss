@@ -1,12 +1,11 @@
 .login-container {
-  // flex: 1;
-  // background-color: rgb(247,245,247);
-  // color: rgb(46,45,47);
-  // order: 2;
-  left: 50%;
-  top: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
+  flex: 1;
+  color: rgb(46,45,47);
+  order: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 .control.invalid input {

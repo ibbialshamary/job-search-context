@@ -6,13 +6,14 @@ import Logout from "./components/auth/Logout/Logout";
 // import Navbar from "./components/layout/Navbar/Navbar";
 import AuthContext from "./context/AuthContext";
 import LandingPage from "./components/pages/LandingPage/LandingPage";
+import Navbar from "./components/layout/Navbar/Navbar";
 
 const Router = (props) => {
   const { loggedIn } = useContext(AuthContext);
 
   return (
     <BrowserRouter>
-      {/* <Navbar /> */}
+      <Navbar />
       <Switch>
         <Route exact path="/">
           <LandingPage />

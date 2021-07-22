@@ -1,3 +1,9 @@
 .landing-page-container {
-  height: 100vh;
+  flex: 1;
+  background-color: rgb(247,245,247);
+  color: rgb(46,45,47);
+  order: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

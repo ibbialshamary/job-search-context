@@ -1,67 +1,65 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import Logout from "../../auth/Logout/Logout";
 import AuthContext from "../../../context/AuthContext";
-import "./Navbar.scss";
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink,
+} from "./NavbarElements";
 
+// this component uses styled components unlike the rest of the app
 const Navbar = () => {
   const { loggedIn } = useContext(AuthContext);
+
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
-        <a class="navbar-brand underlined">
-          Basra.
-        </a>
-        <a
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <div id="items">
-            <ul class="navbar-nav">
-              {loggedIn === false && (
-                <>
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/register">
-                      Register
-                    </Link>
-                  </li>
+      <Nav>
+        <NavLink to="/">
+          <h1>Basra.</h1>
+        </NavLink>
+        <Bars />
+        <NavMenu>
+          <NavLink to="/about" activeStyle>
+            About
+          </NavLink>
+          {loggedIn === false && (
+            <>
+              <NavLink to="/register" activeStyle>
+                Register
+              </NavLink>
+            </>
+          )}
 
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/login">
-                      Login
-                    </Link>
-                  </li>
-                </>
-              )}
-              {loggedIn === true && (
-                <>
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/search-jobs">
-                      Search Jobs
-                    </Link>
-                  </li>
+          {loggedIn === true && (
+            <>
+              <NavLink to="/search-jobs" activeStyle>
+                Search Jobs
+              </NavLink>
+              <NavLink to="/advertise-jobs" activeStyle>
+                Advertise Jobs
+              </NavLink>
+            </>
+          )}
+        </NavMenu>
+        {loggedIn === true && (
+          <>
+            <NavBtn>
+              <NavBtnLink to="/">Logout</NavBtnLink>
+            </NavBtn>
+          </>
+        )}
 
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/advertise-jobs">
-                      Advertise Jobs
-                    </Link>
-                  </li>
-
-                  {/* <li class="nav-item"><Logout class="nav-link" /></li> */}
-                </>
-              )}
-            </ul>
-          </div>
-        </div>
-      </nav>
+        {loggedIn === false && (
+          <>
+            <NavBtn>
+              <NavBtnLink to="/login">Login</NavBtnLink>
+            </NavBtn>
+          </>
+        )}
+      </Nav>
     </>
   );
 };

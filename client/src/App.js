@@ -25,7 +25,6 @@ function App() {
       {forgottenPasswordIsShown && (
         <ForgottenPassword onClose={hideForgottenPasswordHandler} />
       )}
-      {/* <Navbar /> */}
       <AuthContextProvider>
         <Router onOpen={showForgottenPasswordHandler} />
       </AuthContextProvider>
