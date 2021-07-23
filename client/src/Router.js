@@ -32,8 +32,8 @@ const Router = (props) => {
         )}
         {loggedIn === true && (
           <>
-            <Route path="/customer">
-              <div>Customers</div>
+            <Route path="/search-jobs">
+              <LandingPage />
             </Route>
           </>
         )}

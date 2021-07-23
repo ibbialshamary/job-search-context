@@ -4,7 +4,7 @@ import { FaBars } from "react-icons/fa";
 import "../../../assets/variables.scss";
 
 export const Nav = styled.nav`
-  background: #f7f5f7 !important;
+  /* background: #f7f5f7 !important; */
   height: 80px;
   display: flex;
   justify-content: space-between;

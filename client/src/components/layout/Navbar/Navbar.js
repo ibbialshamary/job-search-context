@@ -20,9 +20,9 @@ const Navbar = () => {
   return (
     <>
       <Nav>
-        <NavLink to="/">
+        <NavLink to="/about">
           {/* <img src={require('../../images/logo.svg')} alt="" /> */}
-          <h1 className="navbar-h1">Basra.</h1>
+          <h1 className="logo-underline">Buzzra.</h1>
         </NavLink>
         <Bars />
         <NavMenu>
@@ -31,6 +31,9 @@ const Navbar = () => {
           </NavLink>
           {loggedIn === false && (
             <>
+              <NavLink to="/preview" activeStyle>
+                Preview
+              </NavLink>
               <NavLink to="/register" activeStyle>
                 Register
               </NavLink>
@@ -51,7 +54,7 @@ const Navbar = () => {
         {loggedIn === true && (
           <>
             <NavBtn>
-              <Logout class="navbar-button" />
+              <Logout class="mini-button" />
             </NavBtn>
           </>
         )}
@@ -59,7 +62,12 @@ const Navbar = () => {
         {loggedIn === false && (
           <>
             <NavBtn>
-              <Button class="navbar-button" onClick={() => history.push('/login')}>Login</Button>
+              <Button
+                class="mini-button"
+                onClick={() => history.push("/login")}
+              >
+                Login
+              </Button>
             </NavBtn>
           </>
         )}

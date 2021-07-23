@@ -12,7 +12,7 @@ const ForgottenPassword = (props) => {
         </strong>
         <p>
           To reset your password, enter the email address you use to sign in to
-          Basra
+          Buzzra
         </p>
         <form onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="email-address">Email Address</label>

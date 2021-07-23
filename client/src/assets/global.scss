@@ -17,7 +17,7 @@ body {
   // display: grid;
   // place-items: center;
   text-align: center;
-  background-color: #fafafa !important;
+  // background-color: #fafafa !important;
 }
 
 a {
@@ -36,13 +36,30 @@ input, button {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: $primary-radius !important;
   padding: 10px;
+
+  @media only screen and (max-width: 750px) {
+    width: $primary-width - 200px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    width: $primary-width - 300px;
+  }
+
+  @media only screen and (max-width: 370px) {
+    width: $primary-width - 350px;
+  }
+
+  @media only screen and (max-width: 325px) {
+    width: $primary-width - 400px;
+  }
+  
 }
 
-h1.navbar-h1 {
+.logo-underline {
   text-decoration: underline;
 }
 
-button.navbar-button {
+button.mini-button {
   width: unset;
   margin: 0 !important;
 
@@ -59,6 +76,10 @@ button.navbar-button {
   &:hover {
     transform: translateY(-4px);
   }
+}
+
+input.mini-input {
+  width: $primary-width / 2;
 }
 
 .flex-box-container {
@@ -116,11 +137,16 @@ button.navbar-button {
 
 #welcomeMessageFlexBox {
   flex: 1;
-  background-color:$primary-bg;
-  color: $primary-text;
+  background-color:rgba(253, 204, 5, 1);
+  color: rgb(46,45,47);
   // background-image: url("https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=941&q=80");
   // background-repeat: no-repeat;
   // background-size: cover;
+
+  @media only screen and (max-width: 1350px) {
+    display: none;
+  }
+  
 }
 
 
@@ -137,7 +163,6 @@ button.navbar-button {
     padding: 15px;
     border-radius: 50%;
     margin-right: $primary-margin;
-    color: black;
   
     &.one {
       background-color: #f7df1e;
@@ -158,4 +183,14 @@ button.navbar-button {
     }
   }
 
+}
+
+.no-border-left {
+  border-top-left-radius: unset !important;
+  border-bottom-left-radius: unset !important;
+}
+
+.no-border-right {
+  border-top-right-radius: unset !important;
+  border-bottom-right-radius: unset !important;
 }

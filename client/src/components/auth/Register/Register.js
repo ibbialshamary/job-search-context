@@ -208,10 +208,10 @@ const Register = () => {
         id="welcomeMessageFlexBox"
       >
         <div className={classes["titles-container"]}>
-          <h1 className={classes["logo"]}>Basra.</h1>
+          {/* <h1 className={classes["logo"]}>Buzzra.</h1>
           <p>The Best Job Hunting Service</p>
-          <br />
-          <h1>How it works?</h1>
+          <br /> */}
+          <h1>How it works?</h1><br />
           <div className="how-it-works-container">
             <div>
               <ProfileIcon className="icon one" />
