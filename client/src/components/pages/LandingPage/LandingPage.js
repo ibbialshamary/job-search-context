@@ -1,7 +1,5 @@
 import React from "react";
-import Logout from "../../auth/Logout/Logout";
 import Button from "../../layout/Button/Button";
-import Navbar from "../../layout/Navbar/Navbar";
 import classes from "./LandingPage.module.scss";
 
 const LandingPage = () => {
@@ -23,13 +21,12 @@ const LandingPage = () => {
             <div className={classes["job-search-container"]}>
               <input
                 type="text"
-                className="no-border-right"
+                className="mini-input no-border-right"
                 placeholder="Location"
-                className="mini-input"
               />
               <input
                 type="text"
-                className="no-border-right"
+                className="no-border-right no-border-left"
                 placeholder="Enter a role name or keyword"
               />
               <Button class="mini-button no-border-left">Explore Now</Button>

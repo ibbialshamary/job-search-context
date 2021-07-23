@@ -20,15 +20,12 @@ const Navbar = () => {
   return (
     <>
       <Nav>
-        <NavLink to="/about">
+        <NavLink to="/">
           {/* <img src={require('../../images/logo.svg')} alt="" /> */}
           <h1 className="logo-underline">Buzzra.</h1>
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to="/about" activeStyle>
-            About
-          </NavLink>
           {loggedIn === false && (
             <>
               <NavLink to="/preview" activeStyle>
@@ -44,6 +41,9 @@ const Navbar = () => {
             <>
               <NavLink to="/search-jobs" activeStyle>
                 Search Jobs
+              </NavLink>
+              <NavLink to="/available-jobs" activeStyle>
+                Available Jobs
               </NavLink>
               <NavLink to="/advertise-jobs" activeStyle>
                 Advertise Jobs

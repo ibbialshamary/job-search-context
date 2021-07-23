@@ -1,7 +1,7 @@
 @import "../../../assets/variables.scss";
 
 button {
-  background-color: $primary-bg;
+  background-color: $primary-background;
   color: white;
   outline: none;
   border: unset;
@@ -22,6 +22,8 @@ button {
 
   &:hover {
     transform: translateY(-4px);
+    color: black !important;
+    background-color: $secondary-background !important;
   }
 }
 
