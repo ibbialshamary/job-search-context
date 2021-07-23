@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 
-const Logout = () => {
+const Logout = (props) => {
   const { getLoggedIn } = useContext(AuthContext);
   const history = useHistory();
 
@@ -13,7 +13,7 @@ const Logout = () => {
     history.push("/login");
   };
 
-  return <button onClick={logout}>Logout</button>;
+  return <button className={props.class} onClick={logout}>Logout</button>;
 };
 
 export default Logout;

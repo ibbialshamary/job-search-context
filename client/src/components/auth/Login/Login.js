@@ -133,7 +133,7 @@ const Login = (props) => {
               class={!formIsValid ? "disabled" : null}
               onClick={login}
             >
-              {joinButtonText}
+              Login
             </Button>
             <br />
             <Button class="google-register-button">

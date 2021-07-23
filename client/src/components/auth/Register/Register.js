@@ -5,6 +5,10 @@ import classes from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import Button from "../../layout/Button/Button";
 import { useHistory } from "react-router";
+import { CgProfile as ProfileIcon } from "react-icons/cg";
+import { HiSwitchHorizontal as SwitchIcon } from "react-icons/hi";
+import { AiOutlineForm as FormFillIcon } from "react-icons/ai";
+import { FaUmbrellaBeach as RelaxIcon } from "react-icons/fa";
 
 // reducer methods
 const emailReducer = () => {};
@@ -116,7 +120,7 @@ const Register = () => {
       <div className={classes["register-container"]}>
         <div className="form-container">
           <div className="titles-container">
-            <h1>Sign up</h1>
+            <h1>Register</h1>
             <p>
               Already have an account? <Link to="/login">Login</Link>
             </p>
@@ -189,7 +193,7 @@ const Register = () => {
               class={!formIsValid ? "disabled" : null}
               onClick={register}
             >
-              {joinButtonText}
+              Join
             </Button>
 
             <div className="error-message-container">
@@ -199,10 +203,34 @@ const Register = () => {
         </div>
       </div>
 
-      <div className={classes["welcome-message-container"]} id="welcomeMessageFlexBox">
+      <div
+        className={classes["welcome-message-container"]}
+        id="welcomeMessageFlexBox"
+      >
         <div className={classes["titles-container"]}>
-          <h1>Basra</h1>
+          <h1 className={classes["logo"]}>Basra.</h1>
           <p>The Best Job Hunting Service</p>
+          <br />
+          <h1>How it works?</h1>
+          <div className="how-it-works-container">
+            <div>
+              <ProfileIcon className="icon one" />
+              Join us
+            </div>
+            <div>
+              <SwitchIcon className="icon two" />
+              Switch between job-hunter and recruiter
+            </div>
+            <div>
+              <FormFillIcon className="icon three" />
+              Fill in quick preferences
+            </div>
+
+            <div>
+              <RelaxIcon className="icon four" />
+              Sit back, relax and let us find your best job
+            </div>
+          </div>
         </div>
       </div>
     </div>

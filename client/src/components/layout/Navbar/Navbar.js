@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Logout from "../../auth/Logout/Logout";
 import AuthContext from "../../../context/AuthContext";
+import Button from "../Button/Button";
 import {
   Nav,
   NavLink,
@@ -9,16 +10,19 @@ import {
   NavBtn,
   NavBtnLink,
 } from "./NavbarElements";
+import { useHistory } from "react-router-dom";
 
 // this component uses styled components unlike the rest of the app
 const Navbar = () => {
   const { loggedIn } = useContext(AuthContext);
+  const history = useHistory();
 
   return (
     <>
       <Nav>
         <NavLink to="/">
-          <h1>Basra.</h1>
+          {/* <img src={require('../../images/logo.svg')} alt="" /> */}
+          <h1 className="navbar-h1">Basra.</h1>
         </NavLink>
         <Bars />
         <NavMenu>
@@ -47,7 +51,7 @@ const Navbar = () => {
         {loggedIn === true && (
           <>
             <NavBtn>
-              <NavBtnLink to="/">Logout</NavBtnLink>
+              <Logout class="navbar-button" />
             </NavBtn>
           </>
         )}
@@ -55,7 +59,7 @@ const Navbar = () => {
         {loggedIn === false && (
           <>
             <NavBtn>
-              <NavBtnLink to="/login">Login</NavBtnLink>
+              <Button class="navbar-button" onClick={() => history.push('/login')}>Login</Button>
             </NavBtn>
           </>
         )}
