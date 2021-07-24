@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from "../../../context/AuthContext";
 import Button from "../../layout/Button/Button";
 import classes from "./LandingPage.module.scss";
+import { useHistory } from "react-router";
 
 const LandingPage = () => {
+  const [location, setLocation] = useState("");
+
+  const history = useHistory();
+  const { getFilteredJobs } = useContext(AuthContext);
+
+  // methods
+  const locationChangeHandler = (e) => {
+    setLocation(e.target.value);
+  };
+
+  const fetchFilteredJobs = () => {
+    getFilteredJobs(location);
+    history.push("/job-search-result");
+  };
+
   return (
     <>
       <div className="flex-box-container">
@@ -23,15 +40,25 @@ const LandingPage = () => {
                 type="text"
                 className="mini-input no-border-right"
                 placeholder="Location"
+                value={location}
+                onChange={locationChangeHandler}
               />
               <input
                 type="text"
                 className="no-border-right no-border-left"
                 placeholder="Enter a role name or keyword"
               />
-              <Button class="mini-button no-border-left">Explore Now</Button>
-            </div><br />
-            <p><strong>Popular searches this week: </strong> None to be populated</p>
+              <Button
+                class="mini-button no-border-left"
+                onClick={fetchFilteredJobs}
+              >
+                Explore Now
+              </Button>
+            </div>
+            <br />
+            <p>
+              <strong>Popular searches this week: </strong> None to be populated
+            </p>
           </div>
         </div>
       </div>

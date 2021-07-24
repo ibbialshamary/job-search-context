@@ -43,7 +43,7 @@ const Navbar = () => {
                 Search Jobs
               </NavLink>
               <NavLink to="/available-jobs" activeStyle>
-                Available Jobs
+                My Available Jobs
               </NavLink>
               <NavLink to="/advertise-jobs" activeStyle>
                 Advertise Jobs

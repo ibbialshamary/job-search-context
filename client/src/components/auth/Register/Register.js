@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import AuthContext from "../../../context/AuthContext";
+// import AuthContext from "../../../context/AuthContext";
 import classes from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import Button from "../../layout/Button/Button";
@@ -11,7 +11,7 @@ import { AiOutlineForm as FormFillIcon } from "react-icons/ai";
 import { FaUmbrellaBeach as RelaxIcon } from "react-icons/fa";
 
 // reducer methods
-const emailReducer = () => {};
+// const emailReducer = () => {};
 
 const Register = () => {
   // variables
@@ -30,15 +30,15 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const [joinButtonText, setJoinButtonText] = useState(
-    "Checking form validity"
-  );
+  // const [joinButtonText, setJoinButtonText] = useState(
+  //   "Checking form validity"
+  // );
 
   // reducer
-  const [emailState, dispatchEmail] = useReducer();
+  // const [emailState, dispatchEmail] = useReducer();
 
   // context
-  const { getLoggedIn } = useContext(AuthContext);
+  // const { getLoggedIn } = useContext(AuthContext);
 
   // methods
   const emailChangeHandler = (e) => {
@@ -102,15 +102,15 @@ const Register = () => {
           verifyPassword.length > 6
       );
       if (formIsValid) {
-        setJoinButtonText("Join");
+        // setJoinButtonText("Join");
       } else {
-        setJoinButtonText("Please correct highlighted fields");
+        // setJoinButtonText("Please correct highlighted fields");
       }
     }, 500);
 
     return () => {
       console.log("Clean up");
-      setJoinButtonText("Checking form validity");
+      // setJoinButtonText("Checking form validity");
       clearTimeout(identifier);
     };
   }, [email, formIsValid, password, verifyPassword]);
