@@ -5,18 +5,30 @@ import classes from "./LandingPage.module.scss";
 import { useHistory } from "react-router";
 
 const LandingPage = () => {
-  const [location, setLocation] = useState("");
+  // states
+  const [location, setLocation] = useState(null);
+  const [title, setTitle] = useState(null);
 
   const history = useHistory();
+  
+  // context
   const { getFilteredJobs } = useContext(AuthContext);
+  const { getAllJobs } = useContext(AuthContext);
+  const { getRecentJobs } = useContext(AuthContext);
 
   // methods
   const locationChangeHandler = (e) => {
     setLocation(e.target.value);
   };
 
+  const titleChangeHandler = (e) => {
+    setTitle(e.target.value);
+  };
+
   const fetchFilteredJobs = () => {
-    getFilteredJobs(location);
+    getFilteredJobs(location, title);
+    getAllJobs();
+    getRecentJobs();
     history.push("/job-search-result");
   };
 
@@ -47,6 +59,8 @@ const LandingPage = () => {
                 type="text"
                 className="no-border-right no-border-left"
                 placeholder="Enter a role name or keyword"
+                value={title}
+                onChange={titleChangeHandler}
               />
               <Button
                 class="mini-button no-border-left"
