@@ -75,6 +75,11 @@ button.mini-button {
   text-decoration: none;
 }
 
+button.hot-button {
+  background-color: $hot-background;
+  color: $hot-text;
+}
+
 input.mini-input {
   width: $primary-width / 2;
 }
@@ -205,4 +210,32 @@ input.mini-input {
       color: $primary-text;
     }
   }
+}
+
+button.margin-right {
+  margin-right: $primary-margin / 4 !important;
+}
+
+button.margin-left {
+  margin-left: $primary-margin / 4 !important;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $hot-background;
+  transition: $primary-transition;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $secondary-background;
 }

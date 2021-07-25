@@ -8,6 +8,7 @@ const AuthContextProvider = (props) => {
   const [allJobs, setAllJobs] = useState(undefined);
   const [filteredJobs, setFilteredJobs] = useState(undefined);
   const [recentJobs, setRecentJobs] = useState(null);
+  const [recentJobsCount, setRecentJobsCount] = useState(null);
 
   // methods
   const getLoggedIn = async () => {
@@ -47,6 +48,7 @@ const AuthContextProvider = (props) => {
   const getRecentJobs = async () => {
     const recentJobs = await axios.get("http://localhost:5000/jobs/recent");
     setRecentJobs(recentJobs.data);
+    setRecentJobsCount(recentJobs.data.length);
   };
 
   useEffect(() => {
@@ -65,6 +67,7 @@ const AuthContextProvider = (props) => {
         daysPostedCalculator,
         getRecentJobs,
         recentJobs,
+        recentJobsCount
       }}
     >
       {props.children}

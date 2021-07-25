@@ -6,38 +6,64 @@ import { FaHotjar as HotIcon, FaPoundSign as SalaryIcon } from "react-icons/fa";
 import Button from "../../../layout/Button/Button";
 
 const JobItem = () => {
+  // state
+  const [autoUpdateEnabled, setAutoUpdateEnabled] = useState(false);
+  const [isFilteredJobsResultEmpty, setIsFilteredJobsResultEmpty] = useState(false);
+  const [isRecentJobsResultEmpty, setIsRecentJobsResultEmpty] = useState(false);
+
   // context
   const { filteredJobs } = useContext(AuthContext);
   const { getFilteredJobs } = useContext(AuthContext);
-  const { getAllJobs } = useContext(AuthContext);
   const { daysPostedCalculator } = useContext(AuthContext);
 
+  const { getRecentJobs } = useContext(AuthContext);
   const { recentJobs } = useContext(AuthContext);
 
-  //methods
+  useEffect(() => {
+    !filteredJobs || (filteredJobs && filteredJobs.length < 1)
+      ? setIsFilteredJobsResultEmpty(true)
+      : setIsFilteredJobsResultEmpty(false);
+  }, [filteredJobs]);
+  
+  useEffect(() => {
+    !recentJobs || (recentJobs && recentJobs.length < 1)
+      ? setIsRecentJobsResultEmpty(true)
+      : setIsRecentJobsResultEmpty(false);
+  }, [recentJobs]);
+
   const filterAllJobs = () => {
     getFilteredJobs("all");
+  };
+
+  const enableAutoUpdateHandler = () => {
+    setAutoUpdateEnabled(true);
+  };
+
+  const disableAutoUpdateHandler = () => {
+    setAutoUpdateEnabled(false);
   };
 
   // effects
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("Test");
-    }, 6000);
+      if (autoUpdateEnabled) {
+        getRecentJobs();
+      }
+    }, 5000);
 
     return () => {
       clearTimeout(interval);
     };
-  }, []);
+  }, [autoUpdateEnabled, getRecentJobs]);
 
   return (
     <>
       <h1>
         <strong>Jobs filtered just for you</strong>
       </h1>
-      <p>{filteredJobs && filteredJobs.length} available jobs!</p>
+      <p>{!isFilteredJobsResultEmpty ? filteredJobs && filteredJobs.length : "No" } available jobs!</p>
       <hr />
-      {filteredJobs && filteredJobs.length < 1 && (
+      {isFilteredJobsResultEmpty && (
         <>
           <p>
             Sorry, no available jobs 🦗, please update your search or
@@ -91,7 +117,28 @@ const JobItem = () => {
         <strong>Recent new jobs</strong>
       </h1>
       <hr />
-      <p>{recentJobs && recentJobs.length} job(s) added today!</p>
+      <p>{!isRecentJobsResultEmpty ? recentJobs && recentJobs.length : "No" } job(s) added today!</p>
+      <Button class="mini-button margin-right" onClick={getRecentJobs}>
+        New recent jobs available. Refresh?
+      </Button>
+      {autoUpdateEnabled && (
+        <Button
+          class="mini-button margin-left"
+          onClick={disableAutoUpdateHandler}
+        >
+          Disable auto update recent jobs
+        </Button>
+      )}
+      {!autoUpdateEnabled && (
+        <Button
+          class="mini-button hot-button margin-left"
+          onClick={enableAutoUpdateHandler}
+        >
+          Enable auto update recent jobs
+        </Button>
+      )}
+      <br />
+      <br />
       {recentJobs &&
         recentJobs.map((job, index) => (
           <div>
@@ -134,10 +181,6 @@ const JobItem = () => {
             </div>
           </div>
         ))}
-      <Button class="mini-button" onClick={getAllJobs}>
-        New recent jobs available. Refresh?
-      </Button>
-      <br />
     </>
   );
 };
