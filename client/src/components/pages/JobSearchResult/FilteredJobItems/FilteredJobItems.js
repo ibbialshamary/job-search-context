@@ -5,7 +5,7 @@ import { MdLocationOn as LocationIcon } from "react-icons/md";
 import { FaHotjar as HotIcon, FaPoundSign as SalaryIcon } from "react-icons/fa";
 import Button from "../../../layout/Button/Button";
 
-const JobItem = () => {
+const JobItem = (props) => {
   // state
   const [autoUpdateEnabled, setAutoUpdateEnabled] = useState(false);
   const [isFilteredJobsResultEmpty, setIsFilteredJobsResultEmpty] = useState(false);
@@ -111,7 +111,7 @@ const JobItem = () => {
               </div>
             </div>
             <Button class="mini danger margin-left apply-now no-transition-transform">Delete Job</Button>
-            <Button class="mini hot margin-right apply-now no-transition-transform">Apply now</Button><br /><br /><br/>
+            <Button class="mini margin-right apply-now no-transition-transform" onClick={props.onOpenApplicationFormModal}>Apply Now</Button><br /><br /><br/>
           </div>
         ))}
 
@@ -133,7 +133,7 @@ const JobItem = () => {
       )}
       {!autoUpdateEnabled && (
         <Button
-          class="mini hot-button margin-left"
+          class="mini hot margin-left"
           onClick={enableAutoUpdateHandler}
         >
           Enable auto update recent jobs
@@ -180,7 +180,7 @@ const JobItem = () => {
                 </div>
               </div>
               <Button class="mini danger margin-left apply-now no-transition-transform">Delete Job</Button>
-            <Button class="mini hot margin-right apply-now no-transition-transform">Apply now</Button><br /><br /><br/>
+            <Button class="mini margin-right apply-now no-transition-transform" onClick={props.onOpenApplicationFormModal}>Apply Now</Button><br /><br /><br/>
             </div>
           </div>
         ))}

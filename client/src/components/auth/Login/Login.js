@@ -145,7 +145,7 @@ const Login = (props) => {
               Login with Google
             </Button>
             <br />
-            <Button class="secondary" onClick={props.onClick}>
+            <Button class="secondary" onClick={props.onClickForgotPassword}>
               Forgotten Password? Reset Here
             </Button>
             <br />

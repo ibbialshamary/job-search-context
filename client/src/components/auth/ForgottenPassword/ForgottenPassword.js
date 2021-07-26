@@ -5,7 +5,7 @@ import classes from "./ForgottenPassword.module.scss";
 
 const ForgottenPassword = (props) => {
   return (
-    <Modal onClose={props.onClose}>
+    <Modal onClose={props.onCloseForgotPasswordModal}>
       <div className="form-container">
         <strong>
           <h1>Password Reset</h1>
@@ -18,7 +18,7 @@ const ForgottenPassword = (props) => {
           <label htmlFor="email-address">Email Address</label>
           <input type="email" />
           <Button>Send Reset Instructions</Button>
-          <Button class="secondary" onClick={props.onClose}>Go Back</Button>
+          <Button class="secondary" onClick={props.onCloseForgotPasswordModal}>Go Back</Button>
         </form>
       </div>
     </Modal>

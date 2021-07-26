@@ -27,7 +27,7 @@ const Router = (props) => {
             </Route>
             <Route path="/login">
               <div>
-                <Login onClick={props.onOpen} />
+                <Login onClickForgotPassword={props.onOpenForgotPasswordModal} />
               </div>
             </Route>
           </>
@@ -41,7 +41,7 @@ const Router = (props) => {
               <LandingPage />
             </Route>
             <Route path="/job-search-result">
-              <JobSearchResult />
+              <JobSearchResult onClickApply={props.onOpenApplicationFormModal} />
             </Route>
             <Route path="/available-jobs">
               <AvailableJobs />

@@ -4,7 +4,7 @@ import FilteredJobItems from "./FilteredJobItems/FilteredJobItems";
 import React, { useState, useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 
-const JobSearchResult = () => {
+const JobSearchResult = (props) => {
   // context
   const { fetchFilteredJobs } = useContext(AuthContext);
 
@@ -54,7 +54,7 @@ const JobSearchResult = () => {
               </Button>
             </div>
             <br />
-            <FilteredJobItems />
+            <FilteredJobItems onOpenApplicationFormModal={props.onClickApply} />
             <br />
           </div>
         </div>

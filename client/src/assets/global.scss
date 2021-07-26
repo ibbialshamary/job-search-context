@@ -30,7 +30,15 @@ a {
   }
 }
 
-input, button {
+.hot {
+  color: $hot-background;
+}
+input, button, textarea {
+
+  &.no-resize {
+    resize: none;
+  }
+
   width: $primary-width;
   outline: unset;
   border: 1px solid rgba(0, 0, 0, 0.1);
