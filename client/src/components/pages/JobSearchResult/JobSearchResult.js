@@ -23,7 +23,9 @@ const JobSearchResult = () => {
 
   const fetchFilteredJobs = () => {
     if (!location && !title) {
-      getFilteredJobs("none");
+      // return nothing for better user experience, these strings will be searched on back end but will not match anything
+      // could be any string combination that is logical in not returning anything
+      getFilteredJobs("returnNothing", "returnNothing");
     } else if (!location) {
       getFilteredJobs("none", title);
     } else if (!title) {

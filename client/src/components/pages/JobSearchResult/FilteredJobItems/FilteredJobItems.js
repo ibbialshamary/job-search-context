@@ -32,7 +32,8 @@ const JobItem = () => {
   }, [recentJobs]);
 
   const filterAllJobs = () => {
-    getFilteredJobs("all");
+    // this will display all results as back end returns all jobs if all, all are sent as arguments
+    getFilteredJobs("all", "all");
   };
 
   const enableAutoUpdateHandler = () => {
