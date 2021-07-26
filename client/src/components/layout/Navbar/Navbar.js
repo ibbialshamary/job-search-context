@@ -54,7 +54,7 @@ const Navbar = () => {
         {loggedIn === true && (
           <>
             <NavBtn>
-              <Logout class="mini-button" />
+              <Logout class="mini" />
             </NavBtn>
           </>
         )}
@@ -63,7 +63,7 @@ const Navbar = () => {
           <>
             <NavBtn>
               <Button
-                class="mini-button"
+                class="mini"
                 onClick={() => history.push("/login")}
               >
                 Login

@@ -8,6 +8,12 @@ button {
   transition: transform ease-in-out .2s;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: $primary-margin - 5px !important;
+  
+  &.apply-now {
+    border-top-left-radius: unset !important;
+    border-top-right-radius: unset !important;
+    float: right;
+  }
 
   &.disabled {
     background-color: rgb(175, 175, 175);
@@ -20,11 +26,42 @@ button {
     color: black;
   }
 
+  &.danger {
+    background-color: $danger-background !important;
+    color: $danger-text !important;
+  }
+
+  &.hot {
+    background-color: $hot-background !important;
+    color: $hot-text !important;
+  }
+
   &:hover {
     transform: translateY(-4px);
     color: black !important;
     background-color: $secondary-background !important;
   }
+
+  &.no-transition-transform {
+    transform: unset;
+  }
+
+  &.mini {
+    width: unset;
+    margin: 0 !important;
+  
+    border-radius: 4px;
+    background: $primary-background;
+    padding: 10px 22px;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+  }
+
+
 }
 
 .google-register-button {

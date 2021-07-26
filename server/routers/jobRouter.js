@@ -59,6 +59,7 @@ router.get("/filter/:location/:title", auth, async (req, res) => {
     let jobResults;
 
     if (location === "all" || title === "all") {
+      console.log("First condition called");
       jobResults = await Job.find();
     }
 
@@ -68,6 +69,7 @@ router.get("/filter/:location/:title", auth, async (req, res) => {
       location !== "all" &&
       title !== "all"
     ) {
+      console.log("Second condition called");
       jobResults = await Job.find({
         $and: [
           { location: { $regex: location } },
@@ -77,8 +79,12 @@ router.get("/filter/:location/:title", auth, async (req, res) => {
     }
 
     if (location === "none" || title === "none") {
+      console.log("Third condition called");
       jobResults = await Job.find({
-        $or: [{ location: { $regex: location } }, { title: { $regex: title } }],
+        $or: [
+          { location: { $regex: location } },
+          { title: { $regex: title } },
+        ],
       });
     }
 

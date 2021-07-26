@@ -60,25 +60,8 @@ input, button {
   color: $secondary-background;
 }
 
-button.mini-button {
-  width: unset;
-  margin: 0 !important;
 
-  border-radius: 4px;
-  background: $primary-background;
-  padding: 10px 22px;
-  color: #fff;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-}
 
-button.hot-button {
-  background-color: $hot-background;
-  color: $hot-text;
-}
 
 input.mini-input {
   width: $primary-width / 2;
@@ -125,8 +108,8 @@ input.mini-input {
       user-select: none;
       margin-top: $primary-margin;
       .error-message {
-        background-color: crimson;
-        color: white;
+        background-color: $danger-background;
+        color: $danger-text;
         width: $primary-width;
         position: relative;
         left: 50%;

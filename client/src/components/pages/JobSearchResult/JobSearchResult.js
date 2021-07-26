@@ -6,7 +6,7 @@ import AuthContext from "../../../context/AuthContext";
 
 const JobSearchResult = () => {
   // context
-  const { getFilteredJobs } = useContext(AuthContext);
+  const { fetchFilteredJobs } = useContext(AuthContext);
 
   // states
   const [location, setLocation] = useState();
@@ -21,18 +21,8 @@ const JobSearchResult = () => {
     setTitle(e.target.value);
   };
 
-  const fetchFilteredJobs = () => {
-    if (!location && !title) {
-      // return nothing for better user experience, these strings will be searched on back end but will not match anything
-      // could be any string combination that is logical in not returning anything
-      getFilteredJobs("returnNothing", "returnNothing");
-    } else if (!location) {
-      getFilteredJobs("none", title);
-    } else if (!title) {
-      getFilteredJobs(location, "none");
-    } else {
-      getFilteredJobs(location, title);
-    }
+  const fetchFilteredJobsNonContext = () => {
+    fetchFilteredJobs(location, title);
   };
 
   return (
@@ -57,8 +47,8 @@ const JobSearchResult = () => {
                 onChange={titleChangeHandler}
               />
               <Button
-                class="mini-button no-border-left"
-                onClick={fetchFilteredJobs}
+                class="mini no-border-left"
+                onClick={fetchFilteredJobsNonContext}
               >
                 Update Search
               </Button>

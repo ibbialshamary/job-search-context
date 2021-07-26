@@ -62,7 +62,7 @@ const JobItem = () => {
       <h1>
         <strong>Jobs filtered just for you</strong>
       </h1>
-      <p>{!isFilteredJobsResultEmpty ? filteredJobs && filteredJobs.length : "No" } available jobs!</p>
+      <p>{!isFilteredJobsResultEmpty ? filteredJobs && filteredJobs.length : "No" } available job(s)!</p>
       <hr />
       {isFilteredJobsResultEmpty && (
         <>
@@ -70,7 +70,7 @@ const JobItem = () => {
             Sorry, no available jobs 🦗, please update your search or
             alternatively:
           </p>
-          <Button class="mini-button" onClick={filterAllJobs}>
+          <Button class="mini" onClick={filterAllJobs}>
             View all jobs
           </Button>
         </>
@@ -110,7 +110,8 @@ const JobItem = () => {
                 </p>
               </div>
             </div>
-            <br />
+            <Button class="mini danger margin-left apply-now no-transition-transform">Delete Job</Button>
+            <Button class="mini hot margin-right apply-now no-transition-transform">Apply now</Button><br /><br /><br/>
           </div>
         ))}
 
@@ -119,12 +120,12 @@ const JobItem = () => {
       </h1>
       <hr />
       <p>{!isRecentJobsResultEmpty ? recentJobs && recentJobs.length : "No" } job(s) added today!</p>
-      <Button class="mini-button margin-right" onClick={getRecentJobs}>
+      <Button class="mini margin-right" onClick={getRecentJobs}>
         New recent jobs available. Refresh?
       </Button>
       {autoUpdateEnabled && (
         <Button
-          class="mini-button margin-left"
+          class="mini margin-left"
           onClick={disableAutoUpdateHandler}
         >
           Disable auto update recent jobs
@@ -132,7 +133,7 @@ const JobItem = () => {
       )}
       {!autoUpdateEnabled && (
         <Button
-          class="mini-button hot-button margin-left"
+          class="mini hot-button margin-left"
           onClick={enableAutoUpdateHandler}
         >
           Enable auto update recent jobs
@@ -178,7 +179,8 @@ const JobItem = () => {
                   </p>
                 </div>
               </div>
-              <br />
+              <Button class="mini danger margin-left apply-now no-transition-transform">Delete Job</Button>
+            <Button class="mini hot margin-right apply-now no-transition-transform">Apply now</Button><br /><br /><br/>
             </div>
           </div>
         ))}

@@ -12,7 +12,7 @@ const LandingPage = () => {
   const history = useHistory();
   
   // context
-  const { getFilteredJobs } = useContext(AuthContext);
+  const { fetchFilteredJobs } = useContext(AuthContext);
   const { getAllJobs } = useContext(AuthContext);
   const { getRecentJobs } = useContext(AuthContext);
 
@@ -25,8 +25,8 @@ const LandingPage = () => {
     setTitle(e.target.value);
   };
 
-  const fetchFilteredJobs = () => {
-    getFilteredJobs(location, title);
+  const fetchFilteredJobsNonContext = () => {
+    fetchFilteredJobs(location, title);
     getAllJobs();
     getRecentJobs();
     history.push("/job-search-result");
@@ -63,8 +63,8 @@ const LandingPage = () => {
                 onChange={titleChangeHandler}
               />
               <Button
-                class="mini-button no-border-left"
-                onClick={fetchFilteredJobs}
+                class="mini no-border-left"
+                onClick={fetchFilteredJobsNonContext}
               >
                 Explore Now
               </Button>

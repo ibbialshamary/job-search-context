@@ -30,6 +30,20 @@ const AuthContextProvider = (props) => {
     setFilteredJobs(filteredJobsResponse.data);
   };
 
+  const fetchFilteredJobs = (location, title) => {
+    if (!location && !title) {
+      // return nothing for better user experience, these strings will be searched on back end but will not match anything
+      // could be any string combination that is logical in not returning anything
+      getFilteredJobs("returnNothing", "returnNothing");
+    } else if (!location) {
+      getFilteredJobs("none", title);
+    } else if (!title) {
+      getFilteredJobs(location, "none");
+    } else {
+      getFilteredJobs(location, title);
+    }
+  };
+
   const dateFormatter = (date) => {
     return date.split("T")[0].replace(/-/g, "/");
   };
@@ -64,6 +78,7 @@ const AuthContextProvider = (props) => {
         getAllJobs,
         filteredJobs,
         getFilteredJobs,
+        fetchFilteredJobs,
         daysPostedCalculator,
         getRecentJobs,
         recentJobs,
