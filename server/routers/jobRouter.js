@@ -51,21 +51,32 @@ router.get("/recent", auth, async (req, res) => {
   }
 });
 
-// get filtered jobs that match location
+// get filtered jobs that match location or title
 router.get("/filter/:location/:title", auth, async (req, res) => {
   try {
     if (req.params.location === "all") {
-      const allJobs = await Job.find();
-      res.json(allJobs);
-    } else {
-      // get all jobs where location matches request data location
-      const filteredJobs = await Job.find({
+      const noFilters = await Job.find();
+      res.json(noFilters);
+    } else if (
+      req.params.location !== undefined &&
+      req.params.title !== undefined
+    ) {
+      const bothFilters = await Job.find({
+        $and: [
+          { location: { $regex: req.params.location } },
+          { title: { $regex: req.params.title } },
+        ],
+      });
+      res.json(bothFilters);
+    } else if (req.params.location === "none" || req.params.title === "none") {
+      console.log("Third condition called");
+      const eitherFilter = await Job.find({
         $or: [
           { location: { $regex: req.params.location } },
           { title: { $regex: req.params.title } },
         ],
       });
-      res.json(filteredJobs);
+      res.json(eitherFilter);
     }
   } catch (err) {
     res.status(500).send({ errorMessage: "Unable to retrieve jobs" });

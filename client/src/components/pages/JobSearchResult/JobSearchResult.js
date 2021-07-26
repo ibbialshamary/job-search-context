@@ -9,15 +9,28 @@ const JobSearchResult = () => {
   const { getFilteredJobs } = useContext(AuthContext);
 
   // states
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState();
+  const [title, setTitle] = useState();
 
   // methods
   const locationChangeHandler = (e) => {
     setLocation(e.target.value);
   };
 
+  const titleChangeHandler = (e) => {
+    setTitle(e.target.value);
+  };
+
   const fetchFilteredJobs = () => {
-    !location ? getFilteredJobs("none") : getFilteredJobs(location);
+    if (!location && !title) {
+      getFilteredJobs("none");
+    } else if (!location) {
+      getFilteredJobs("none", title);
+    } else if (!title) {
+      getFilteredJobs(location, "none");
+    } else {
+      getFilteredJobs(location, title);
+    }
   };
 
   return (
@@ -38,6 +51,8 @@ const JobSearchResult = () => {
                 type="text"
                 className="no-border-right no-border-left"
                 placeholder="Role Title"
+                value={title}
+                onChange={titleChangeHandler}
               />
               <Button
                 class="mini-button no-border-left"
