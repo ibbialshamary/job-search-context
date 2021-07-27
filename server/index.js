@@ -41,3 +41,4 @@ mongoose.connect(
 // set up routes
 app.use("/authenticate", require("./routers/userRouter"));
 app.use("/jobs", require("./routers/jobRouter"));
+app.use("/job-application", require("./routers/jobApplicationRouter"));

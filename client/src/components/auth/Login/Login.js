@@ -18,7 +18,8 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [passwordIsValid, setPasswordIsValid] = useState();
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isStatusSuccessful, setIsStatusSuccessful] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [joinButtonText, setJoinButtonText] = useState(
@@ -59,7 +60,8 @@ const Login = (props) => {
       getLoggedIn();
       history.push("/");
     } catch (error) {
-      setErrorMessage(error.response.data.errorMessage);
+      setStatusMessage(error.response.data.errorMessage);
+      setIsStatusSuccessful(false);
     }
   }
 
@@ -150,8 +152,9 @@ const Login = (props) => {
             </Button>
             <br />
 
-            <div className="error-message-container">
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <div className="status-message-container">
+              {isStatusSuccessful === false && statusMessage && <p className="status-message error">{statusMessage}</p>}
+              {isStatusSuccessful === true && statusMessage && <p className="status-message success">{statusMessage}</p>}
             </div>
           </form>
         </div>

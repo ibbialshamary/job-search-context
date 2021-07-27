@@ -8,13 +8,16 @@ import Button from "../../../layout/Button/Button";
 const JobItem = (props) => {
   // state
   const [autoUpdateEnabled, setAutoUpdateEnabled] = useState(false);
-  const [isFilteredJobsResultEmpty, setIsFilteredJobsResultEmpty] = useState(false);
+  const [isFilteredJobsResultEmpty, setIsFilteredJobsResultEmpty] =
+    useState(false);
   const [isRecentJobsResultEmpty, setIsRecentJobsResultEmpty] = useState(false);
 
   // context
   const { filteredJobs } = useContext(AuthContext);
   const { getFilteredJobs } = useContext(AuthContext);
   const { daysPostedCalculator } = useContext(AuthContext);
+  const { isProfileSetUp } = useContext(AuthContext);
+  const { setSelectedJob } = useContext(AuthContext);
 
   const { getRecentJobs } = useContext(AuthContext);
   const { recentJobs } = useContext(AuthContext);
@@ -24,12 +27,14 @@ const JobItem = (props) => {
       ? setIsFilteredJobsResultEmpty(true)
       : setIsFilteredJobsResultEmpty(false);
   }, [filteredJobs]);
-  
+
   useEffect(() => {
     !recentJobs || (recentJobs && recentJobs.length < 1)
       ? setIsRecentJobsResultEmpty(true)
       : setIsRecentJobsResultEmpty(false);
   }, [recentJobs]);
+
+  // methods
 
   const filterAllJobs = () => {
     // this will display all results as back end returns all jobs if all, all are sent as arguments
@@ -42,6 +47,20 @@ const JobItem = (props) => {
 
   const disableAutoUpdateHandler = () => {
     setAutoUpdateEnabled(false);
+  };
+
+  const applyUsingProfile = () => {
+    alert("Applied using profile");
+  };
+
+  const applyMethodHandler = (job) => {
+    console.log(job);
+    // if (!isProfileSetUp) {
+    //   // setSelectedJobTitle(title)
+    //   props.onOpenApplicationFormModal();
+    // } else {
+    //   applyUsingProfile();
+    // }
   };
 
   // effects
@@ -62,7 +81,12 @@ const JobItem = (props) => {
       <h1>
         <strong>Jobs filtered just for you</strong>
       </h1>
-      <p>{!isFilteredJobsResultEmpty ? filteredJobs && filteredJobs.length : "No" } available job(s)!</p>
+      <p>
+        {!isFilteredJobsResultEmpty
+          ? filteredJobs && filteredJobs.length
+          : "No"}{" "}
+        available job(s)!
+      </p>
       <hr />
       {isFilteredJobsResultEmpty && (
         <>
@@ -110,32 +134,49 @@ const JobItem = (props) => {
                 </p>
               </div>
             </div>
-            <Button class="mini danger margin-left apply-now no-transition-transform">Delete Job</Button>
-            <Button class="mini margin-right apply-now no-transition-transform" onClick={props.onOpenApplicationFormModal}>Apply Now</Button><br /><br /><br/>
+            <Button class="mini danger margin-left apply-now no-transition-transform">
+              Delete Job
+            </Button>
+            <Button
+              class="mini margin-right apply-now no-transition-transform"
+              onClick={() => {
+                setSelectedJob(job);
+                props.onOpenApplicationFormModal();
+              }}
+            >
+              Apply Now
+            </Button>
+            <br />
+            <br />
+            <br />
           </div>
         ))}
 
       <h1>
         <strong>Recent new jobs</strong>
       </h1>
+      <p>
+        {!isRecentJobsResultEmpty ? recentJobs && recentJobs.length : "No"}{" "}
+        job(s) added today!
+      </p>
       <hr />
-      <p>{!isRecentJobsResultEmpty ? recentJobs && recentJobs.length : "No" } job(s) added today!</p>
+      {isRecentJobsResultEmpty && (
+        <p>Try enabling auto update recent jobs or refreshing: </p>
+      )}
+
       <Button class="mini margin-right" onClick={getRecentJobs}>
         New recent jobs available. Refresh?
       </Button>
       {autoUpdateEnabled && (
         <Button
-          class="mini margin-left"
+          class="mini margin-left danger"
           onClick={disableAutoUpdateHandler}
         >
           Disable auto update recent jobs
         </Button>
       )}
       {!autoUpdateEnabled && (
-        <Button
-          class="mini hot margin-left"
-          onClick={enableAutoUpdateHandler}
-        >
+        <Button class="mini hot margin-left" onClick={enableAutoUpdateHandler}>
           Enable auto update recent jobs
         </Button>
       )}
@@ -179,8 +220,21 @@ const JobItem = (props) => {
                   </p>
                 </div>
               </div>
-              <Button class="mini danger margin-left apply-now no-transition-transform">Delete Job</Button>
-            <Button class="mini margin-right apply-now no-transition-transform" onClick={props.onOpenApplicationFormModal}>Apply Now</Button><br /><br /><br/>
+              <Button class="mini danger margin-left apply-now no-transition-transform">
+                Delete Job
+              </Button>
+              <Button
+                class="mini margin-right apply-now no-transition-transform"
+                onClick={() => {
+                  setSelectedJob(job);
+                  props.onOpenApplicationFormModal();
+                }}
+              >
+                Apply Now
+              </Button>
+              <br />
+              <br />
+              <br />
             </div>
           </div>
         ))}

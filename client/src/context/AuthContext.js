@@ -5,17 +5,21 @@ const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
   const [loggedIn, setLoggedIn] = useState(undefined);
+  const [loggedInUser, setLoggedInUser] = useState(undefined);
   const [allJobs, setAllJobs] = useState(undefined);
   const [filteredJobs, setFilteredJobs] = useState(undefined);
   const [recentJobs, setRecentJobs] = useState(null);
   const [recentJobsCount, setRecentJobsCount] = useState(null);
+  const [isProfileSetUp, setIsProfileSetUp] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
 
   // methods
   const getLoggedIn = async () => {
     const loggedInResponse = await axios.get(
       "http://localhost:5000/authenticate/loggedIn"
     );
-    setLoggedIn(loggedInResponse.data);
+    setLoggedIn(loggedInResponse.data.loggedIn);
+    setLoggedInUser(loggedInResponse.data.loggedInUser);
   };
 
   const getAllJobs = async () => {
@@ -24,6 +28,7 @@ const AuthContextProvider = (props) => {
   };
 
   const getFilteredJobs = async (location, title) => {
+    setFilteredJobs([]);
     const filteredJobsResponse = await axios.get(
       `http://localhost:5000/jobs/filter/${location}/${title}`
     );
@@ -73,6 +78,7 @@ const AuthContextProvider = (props) => {
     <AuthContext.Provider
       value={{
         loggedIn,
+        loggedInUser,
         getLoggedIn,
         allJobs,
         getAllJobs,
@@ -82,7 +88,10 @@ const AuthContextProvider = (props) => {
         daysPostedCalculator,
         getRecentJobs,
         recentJobs,
-        recentJobsCount
+        recentJobsCount,
+        isProfileSetUp,
+        selectedJob,
+        setSelectedJob
       }}
     >
       {props.children}

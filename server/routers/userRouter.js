@@ -32,7 +32,8 @@ router.post("/register", async (req, res) => {
 
     if (existingUser) {
       return res.status(400).json({
-        errorMessage: "An account with the desired email address already exists",
+        errorMessage:
+          "An account with the desired email address already exists",
       });
     }
 
@@ -98,20 +99,12 @@ router.post("/login", async (req, res) => {
         .json({ errorMessage: "Invalid email or password" });
     }
 
-    // log in the user
-    const token = jwt.sign(
-      {
-        user: existingUser._id,
-      },
-      process.env.JWT_SECRET
-    );
+    // log the user in
+    const token = jwt.sign({ user: existingUser._id }, process.env.JWT_SECRET);
 
     // send token in HTTP only cookie
-    res
-      .cookie("token", token, {
-        httpOnly: true,
-      })
-      .send();
+    res.cookie("loggedInUser", existingUser.email, { httpOnly: true });
+    res.cookie("token", token, { httpOnly: true }).send();
   } catch (err) {
     res.status(500).send();
   }
@@ -119,24 +112,21 @@ router.post("/login", async (req, res) => {
 
 // logout endpoint
 router.get("/logout", (req, res) => {
-  res
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(0),
-    })
-    .send();
+  res.cookie("loggedInUser", "", { httpOnly: true, expires: new Date(0) });
+  res.cookie("token", "", { httpOnly: true, expires: new Date(0) }).send();
 });
 
 router.get("/loggedIn", (req, res) => {
   try {
     const token = req.cookies.token;
+    const loggedInUser = req.cookies.loggedInUser;
 
     if (!token) {
       return res.json(false);
     }
 
     jwt.verify(token, process.env.JWT_SECRET);
-    res.send(true);
+    res.send({loggedIn: true, loggedInUser: loggedInUser});
   } catch (err) {
     res.json(false);
   }

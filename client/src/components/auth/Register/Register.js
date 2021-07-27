@@ -27,18 +27,9 @@ const Register = () => {
   const [verifyPassword, setVerifyPassword] = useState("");
   const [verifyPasswordIsValid, setVerifyPasswordIsValid] = useState("");
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isStatusSuccessful, setIsStatusSuccessful] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
-
-  // const [joinButtonText, setJoinButtonText] = useState(
-  //   "Checking form validity"
-  // );
-
-  // reducer
-  // const [emailState, dispatchEmail] = useReducer();
-
-  // context
-  // const { getLoggedIn } = useContext(AuthContext);
 
   // methods
   const emailChangeHandler = (e) => {
@@ -88,7 +79,8 @@ const Register = () => {
       // getLoggedIn();
       history.push("/login");
     } catch (error) {
-      setErrorMessage(error.response.data.errorMessage);
+      setIsStatusSuccessful(false);
+      setStatusMessage(error.response.data.errorMessage);
     }
   };
 
@@ -196,8 +188,9 @@ const Register = () => {
               Join
             </Button>
 
-            <div className="error-message-container">
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <div className="status-message-container">
+              {isStatusSuccessful === false && statusMessage && <p className="status-message error">{statusMessage}</p>}
+              {isStatusSuccessful === true && statusMessage && <p className="status-message success">{statusMessage}</p>}
             </div>
           </form>
         </div>

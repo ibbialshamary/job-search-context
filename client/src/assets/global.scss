@@ -26,7 +26,7 @@ a {
 
   &:hover {
     transform: translateY(-4px);
-    color: rgba(253, 204, 5, 1) !important;
+    color: $secondary-background !important;
   }
 }
 
@@ -111,18 +111,26 @@ input.mini-input {
       margin-bottom: $primary-margin;
     }
 
-    .error-message-container {
+    .status-message-container {
       pointer-events: none;
       user-select: none;
       margin-top: $primary-margin;
-      .error-message {
-        background-color: $danger-background;
-        color: $danger-text;
+      .status-message {
         width: $primary-width;
         position: relative;
         left: 50%;
         transform: translate(-50%);
         padding: $primary-padding;
+
+        &.error {
+          color: $danger-text;
+          background-color: $danger-background;
+        }
+
+        &.success {
+          color: $success-text;
+          background-color: $success-background;
+        }
       }
     }
   }

@@ -15,6 +15,7 @@ const LandingPage = () => {
   const { fetchFilteredJobs } = useContext(AuthContext);
   const { getAllJobs } = useContext(AuthContext);
   const { getRecentJobs } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
 
   // methods
   const locationChangeHandler = (e) => {
@@ -38,7 +39,7 @@ const LandingPage = () => {
         <div className={classes["landing-page-container"]}>
           <div>
             <h1>
-              Find your dream <br />
+              Hi {loggedInUser}. Find your dream <br />
               job with <span className="logo-underline">Buzzra.</span>
             </h1>
             <p>

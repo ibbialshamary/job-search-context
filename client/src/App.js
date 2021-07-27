@@ -9,7 +9,8 @@ import ApplicationForm from "./components/pages/ApplicationForm/ApplicationForm"
 axios.defaults.withCredentials = true;
 
 function App() {
-  const [forgottenPasswordIsShown, setForgottenPasswordIsShown] = useState(false);
+  const [forgottenPasswordIsShown, setForgottenPasswordIsShown] =
+    useState(false);
   const [applicationFormIsShwon, setApplicationFormIsShwon] = useState(false);
 
   const showForgottenPasswordHandler = () => {
@@ -30,17 +31,17 @@ function App() {
 
   return (
     <>
-      {forgottenPasswordIsShown && (
-        <ForgottenPassword
-          onCloseForgotPasswordModal={hideForgottenPasswordHandler}
-        />
-      )}
-      {applicationFormIsShwon && (
-        <ApplicationForm
-          onCloseApplicationFormModal={hideApplicationFormHandler}
-        />
-      )}
       <AuthContextProvider>
+        {forgottenPasswordIsShown && (
+          <ForgottenPassword
+            onCloseForgotPasswordModal={hideForgottenPasswordHandler}
+          />
+        )}
+        {applicationFormIsShwon && (
+          <ApplicationForm
+            onCloseApplicationFormModal={hideApplicationFormHandler}
+          />
+        )}
         <Router
           onOpenForgotPasswordModal={showForgottenPasswordHandler}
           onOpenApplicationFormModal={showApplicationFormHandler}
