@@ -6,11 +6,15 @@ const AuthContext = createContext();
 const AuthContextProvider = (props) => {
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [loggedInUser, setLoggedInUser] = useState(undefined);
+
   const [allJobs, setAllJobs] = useState(undefined);
   const [filteredJobs, setFilteredJobs] = useState(undefined);
+
   const [recentJobs, setRecentJobs] = useState(null);
   const [recentJobsCount, setRecentJobsCount] = useState(null);
+
   const [isProfileSetUp, setIsProfileSetUp] = useState(false);
+
   const [selectedJob, setSelectedJob] = useState(null);
 
   // methods
@@ -69,7 +73,7 @@ const AuthContextProvider = (props) => {
     setRecentJobs(recentJobs.data);
     setRecentJobsCount(recentJobs.data.length);
   };
-
+  
   useEffect(() => {
     getLoggedIn();
   }, []);

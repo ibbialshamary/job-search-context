@@ -42,11 +42,14 @@ const Navbar = () => {
               <NavLink to="/search-jobs" activeStyle>
                 Search Jobs
               </NavLink>
-              <NavLink to="/available-jobs" activeStyle>
-                My Available Jobs
-              </NavLink>
               <NavLink to="/advertise-jobs" activeStyle>
                 Advertise Jobs
+              </NavLink>
+              <NavLink to="/my-jobs" activeStyle>
+                My Jobs
+              </NavLink>              
+              <NavLink to="/profile" activeStyle>
+                Profile
               </NavLink>
             </>
           )}

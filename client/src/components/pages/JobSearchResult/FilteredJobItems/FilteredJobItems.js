@@ -19,6 +19,9 @@ const JobItem = (props) => {
   const { isProfileSetUp } = useContext(AuthContext);
   const { setSelectedJob } = useContext(AuthContext);
 
+  const { getJobApplications } = useContext(AuthContext);
+  const { jobApplications } = useContext(AuthContext);
+
   const { getRecentJobs } = useContext(AuthContext);
   const { recentJobs } = useContext(AuthContext);
 
@@ -61,6 +64,10 @@ const JobItem = (props) => {
     // } else {
     //   applyUsingProfile();
     // }
+  };
+
+  const getJobApplicationsHandler = (reference) => {
+    console.log("hello");
   };
 
   // effects
@@ -118,9 +125,21 @@ const JobItem = (props) => {
                       <LocationIcon /> | {job.location}
                     </div>
                   </div>
-                  {daysPostedCalculator(job.date) < 1 && <p>Recently posted</p>}
+                  {daysPostedCalculator(job.date) < 1 && (
+                    <p>
+                      Recently posted |{" "}
+                      <span class="hot">
+                        {job.jobApplications.length} applicant(s)
+                      </span>
+                    </p>
+                  )}
                   {daysPostedCalculator(job.date) > 0 && (
-                    <p>Posted {daysPostedCalculator(job.date)} day(s) ago</p>
+                    <p>
+                      Posted {daysPostedCalculator(job.date)} day(s) ago |{" "}
+                      <span className="hot">
+                        {job.jobApplications.length} applicant(s)
+                      </span>
+                    </p>
                   )}
                   <br />
                   {job.tags
@@ -203,10 +222,20 @@ const JobItem = (props) => {
                       </div>
                     </div>
                     {daysPostedCalculator(job.date) < 1 && (
-                      <p>Recently posted</p>
+                      <p>
+                        Recently posted |{" "}
+                        <span class="hot">
+                          {job.jobApplications.length} applicant(s)
+                        </span>
+                      </p>
                     )}
                     {daysPostedCalculator(job.date) > 0 && (
-                      <p>Posted {daysPostedCalculator(job.date)} day(s) ago</p>
+                      <p>
+                        Posted {daysPostedCalculator(job.date)} day(s) ago |{" "}
+                        <span className="hot">
+                          {job.jobApplications.length} applicant(s)
+                        </span>
+                      </p>
                     )}
                     <br />
                     {job.tags

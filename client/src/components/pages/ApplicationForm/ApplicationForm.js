@@ -8,6 +8,7 @@ import axios from "axios";
 const ApplicationForm = (props) => {
   // context variables
   const { selectedJob } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
 
   // states
   const [nickname, setNickname] = useState();
@@ -48,7 +49,7 @@ const ApplicationForm = (props) => {
     const jobReference = selectedJob._id;
     
     let name;
-    nickname ? name = nickname : name = "unset";
+    nickname ? name = nickname : name = loggedInUser;
 
     try {
       const applicationFormData = {
@@ -85,7 +86,7 @@ const ApplicationForm = (props) => {
         </strong>
         <p></p>
         <form onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="use-nickname">Use a nickname?</label>
+          <label htmlFor="use-nickname" value={nickname}>Use a nickname?</label>
           <input
             id="use-nickname"
             type="text"

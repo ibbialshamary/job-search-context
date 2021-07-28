@@ -6,8 +6,8 @@ import { useHistory } from "react-router";
 
 const LandingPage = () => {
   // states
-  const [location, setLocation] = useState(null);
-  const [title, setTitle] = useState(null);
+  const [location, setLocation] = useState("");
+  const [title, setTitle] = useState("");
 
   const history = useHistory();
   
@@ -39,7 +39,7 @@ const LandingPage = () => {
         <div className={classes["landing-page-container"]}>
           <div>
             <h1>
-              Hi {loggedInUser}. Find your dream <br />
+              Find your dream <br />
               job with <span className="logo-underline">Buzzra.</span>
             </h1>
             <p>

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const jobSchema = new mongoose.Schema({
   company: { type: String, required: true },
@@ -8,6 +9,10 @@ const jobSchema = new mongoose.Schema({
   salary: { type: Number, required: true },
   hours: { type: Number, required: true },
   tags: { type: String, required: true },
+  advertiserEmail: { type: String, required: true },
+  jobApplications: [
+    { type: Schema.Types.ObjectId, ref: "jobApplicationModel" },
+  ],
   date: { type: Date },
 });
 

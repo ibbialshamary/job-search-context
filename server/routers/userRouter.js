@@ -110,6 +110,15 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).send();
+  }
+});
+
 // logout endpoint
 router.get("/logout", (req, res) => {
   res.cookie("loggedInUser", "", { httpOnly: true, expires: new Date(0) });
@@ -122,13 +131,13 @@ router.get("/loggedIn", (req, res) => {
     const loggedInUser = req.cookies.loggedInUser;
 
     if (!token) {
-      return res.json(false);
+      return res.json({ loggedIn: false });
     }
 
     jwt.verify(token, process.env.JWT_SECRET);
-    res.send({loggedIn: true, loggedInUser: loggedInUser});
+    res.send({ loggedIn: true, loggedInUser: loggedInUser });
   } catch (err) {
-    res.json(false);
+    res.json({ loggedIn: false });
   }
 });
 

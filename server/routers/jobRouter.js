@@ -1,12 +1,24 @@
 const router = require("express").Router();
 const Job = require("../models/jobModel");
+const User = require("../models/userModel");
 const auth = require("../middleware/auth");
 
 router.post("/", auth, async (req, res) => {
   try {
-    const { company, title, description, location, salary, hours, tags } =
-      req.body;
+    const {
+      company,
+      title,
+      description,
+      location,
+      salary,
+      hours,
+      tags,
+      advertiserEmail,
+    } = req.body;
 
+    // find job advertiser so job can be stored in user model
+    const user = await User.find({ email: advertiserEmail });
+    
     const newJob = new Job({
       company,
       title,
@@ -15,13 +27,19 @@ router.post("/", auth, async (req, res) => {
       salary,
       hours,
       tags,
+      advertiserEmail,
       date: new Date(),
     });
 
     const savedJob = await newJob.save();
 
+    // push new job id to advertiser's jobsAdvertised array
+    user[0].jobsAdvertised.push(newJob);
+    await user[0].save();
+
     res.json(savedJob);
   } catch (err) {
+    console.log(err);
     res.status(500).send({ errorMessage: "Unable to save new job" });
   }
 });
@@ -81,10 +99,7 @@ router.get("/filter/:location/:title", auth, async (req, res) => {
     if (location === "none" || title === "none") {
       console.log("Third condition called");
       jobResults = await Job.find({
-        $or: [
-          { location: { $regex: location } },
-          { title: { $regex: title } },
-        ],
+        $or: [{ location: { $regex: location } }, { title: { $regex: title } }],
       });
     }
 

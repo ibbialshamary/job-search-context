@@ -6,9 +6,10 @@ import AuthContext from "./context/AuthContext";
 import LandingPage from "./components/pages/LandingPage/LandingPage";
 import Navbar from "./components/layout/Navbar/Navbar";
 import About from "./components/pages/About/About";
-import AvailableJobs from "./components/pages/AvailableJobs/AvailableJobs";
+import AvailableJobs from "./components/pages/MyJobs/MyJobs";
 import AdvertiseJobs from "./components/pages/AdvertiseJobs/AdvertiseJobs";
 import JobSearchResult from "./components/pages/JobSearchResult/JobSearchResult";
+import Profile from "./components/pages/Profile/Profile";
 
 const Router = (props) => {
   const { loggedIn } = useContext(AuthContext);
@@ -43,11 +44,14 @@ const Router = (props) => {
             <Route path="/job-search-result">
               <JobSearchResult onClickApply={props.onOpenApplicationFormModal} />
             </Route>
-            <Route path="/available-jobs">
-              <AvailableJobs />
-            </Route>
             <Route path="/advertise-jobs">
               <AdvertiseJobs />
+            </Route>
+            <Route path="/my-jobs">
+              <AvailableJobs />
+            </Route>
+            <Route path="/profile">
+              <Profile />
             </Route>
           </>
         )}

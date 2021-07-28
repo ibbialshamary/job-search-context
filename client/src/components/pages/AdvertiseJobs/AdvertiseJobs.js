@@ -3,7 +3,7 @@ import React from 'react'
 const AdvertiseJobs = () => {
   return (
     <div>
-      Advertise Jobs
+      You can advertise jobs here
     </div>
   )
 }
