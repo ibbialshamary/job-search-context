@@ -16,7 +16,7 @@ button {
   }
 
   &.disabled {
-    background-color: rgb(175, 175, 175);
+    opacity: 0.6;
     pointer-events: none;
     cursor: not-allowed !important;
   }
@@ -59,6 +59,14 @@ button {
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+  }
+
+  &.margin-right-class {
+    margin-right: $primary-margin / 4 !important;
+  }
+
+  &.margin-left-class {
+    margin-left: $primary-margin / 4 !important;
   }
 
 

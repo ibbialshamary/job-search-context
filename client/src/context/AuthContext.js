@@ -32,7 +32,6 @@ const AuthContextProvider = (props) => {
   };
 
   const getFilteredJobs = async (location, title) => {
-    setFilteredJobs([]);
     const filteredJobsResponse = await axios.get(
       `http://localhost:5000/jobs/filter/${location}/${title}`
     );

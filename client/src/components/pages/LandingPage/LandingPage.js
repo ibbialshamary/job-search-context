@@ -15,7 +15,6 @@ const LandingPage = () => {
   const { fetchFilteredJobs } = useContext(AuthContext);
   const { getAllJobs } = useContext(AuthContext);
   const { getRecentJobs } = useContext(AuthContext);
-  const { loggedInUser } = useContext(AuthContext);
 
   // methods
   const locationChangeHandler = (e) => {
@@ -28,7 +27,6 @@ const LandingPage = () => {
 
   const fetchFilteredJobsNonContext = () => {
     fetchFilteredJobs(location, title);
-    getAllJobs();
     getRecentJobs();
     history.push("/job-search-result");
   };

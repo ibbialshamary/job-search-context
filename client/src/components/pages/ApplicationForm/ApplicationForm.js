@@ -50,10 +50,12 @@ const ApplicationForm = (props) => {
     
     let name;
     nickname ? name = nickname : name = loggedInUser;
+    const applicant = loggedInUser;
 
     try {
       const applicationFormData = {
         name,
+        applicant,
         cv,
         coverLetter,
         location,

@@ -5,14 +5,14 @@ const Job = require("../models/jobModel");
 
 router.post("/", auth, async (req, res) => {
   try {
-    const { name, cv, coverLetter, location, urls, jobReference } = req.body;
+    const { name, applicant, cv, coverLetter, location, urls, jobReference } = req.body;
 
     // find job application so it can be passed as jobReference
     const job = await Job.findById({ _id: jobReference });
-    console.log(job);
     
     const newJobApplication = new JobApplication({
       name,
+      applicant,
       cv,
       coverLetter,
       location,

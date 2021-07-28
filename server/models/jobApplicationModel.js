@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const jobApplicationSchema = new mongoose.Schema({
   name: { type: String, required: false },
+  applicant: { type: String, required: true },
   cv: { type: String, required: true },
   coverLetter: { type: String, required: false },
   location: { type: String, required: true },

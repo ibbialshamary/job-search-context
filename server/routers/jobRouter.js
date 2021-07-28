@@ -3,6 +3,33 @@ const Job = require("../models/jobModel");
 const User = require("../models/userModel");
 const auth = require("../middleware/auth");
 
+// delete selected job
+router.delete("/:jobId", auth, async (req, res) => {
+  try {
+    // delete job
+    const job = await Job.findByIdAndDelete({ _id: req.params.jobId });
+
+    // delete references so user's jobsAdvertised is up to date
+    // find advertiser/user
+    const user = await User.find({ email: job.advertiserEmail });
+    // if job id in user's jobAdvertised matches the jobId in the request params, empty out and update the field in user
+    const index = user[0].jobsAdvertised.indexOf(req.params.jobId);
+    if (index > -1) {
+      user[0].jobsAdvertised.splice(index, 1);
+      await user[0].save();
+    }
+    // above code ends here
+
+    return res.json({
+      id: job._id,
+      title: job.title,
+      status: "Successfully deleted job",
+    });
+  } catch (err) {
+    res.status(500).send({ errorMessage: "Unable to delete job" });
+  }
+});
+
 router.post("/", auth, async (req, res) => {
   try {
     const {
@@ -18,7 +45,7 @@ router.post("/", auth, async (req, res) => {
 
     // find job advertiser so job can be stored in user model
     const user = await User.find({ email: advertiserEmail });
-    
+
     const newJob = new Job({
       company,
       title,

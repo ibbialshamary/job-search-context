@@ -1,18 +1,48 @@
 import classes from "./JobSearchResult.module.scss";
 import Button from "../../layout/Button/Button";
 import FilteredJobItems from "./FilteredJobItems/FilteredJobItems";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../../context/AuthContext";
 
 const JobSearchResult = (props) => {
   // context
   const { fetchFilteredJobs } = useContext(AuthContext);
+  const { getRecentJobs } = useContext(AuthContext);
+  const { getFilteredJobs } = useContext(AuthContext);
 
   // states
   const [location, setLocation] = useState();
   const [title, setTitle] = useState();
+  const [autoUpdateEnabled, setAutoUpdateEnabled] = useState(false);
+
+  // effects
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (autoUpdateEnabled) {
+        getRecentJobs();
+        getFilteredJobs("all", "all");
+      }
+    }, 5000);
+
+    return () => {
+      clearTimeout(interval);
+    };
+  }, [autoUpdateEnabled, getFilteredJobs, getRecentJobs]);
 
   // methods
+  const refreshJobs = () => {
+    getRecentJobs();
+    getFilteredJobs("all", "all");
+  }
+
+  const enableAutoUpdateHandler = () => {
+    setAutoUpdateEnabled(true);
+  };
+
+  const disableAutoUpdateHandler = () => {
+    setAutoUpdateEnabled(false);
+  };
+
   const locationChangeHandler = (e) => {
     setLocation(e.target.value);
   };
@@ -27,36 +57,58 @@ const JobSearchResult = (props) => {
 
   return (
     <>
-      <div className="flex-box-container">
-        <div className={classes["job-search-reuslt-page-container"]}>
-          <div>
-            <br />
-            <div className={classes["job-search-container"]}>
-              <input
-                type="text"
-                className="mini-input no-border-right"
-                placeholder="Location"
-                value={location}
-                onChange={locationChangeHandler}
-              />
-              <input
-                type="text"
-                className="no-border-right no-border-left"
-                placeholder="Role Title"
-                value={title}
-                onChange={titleChangeHandler}
-              />
+      <div className={classes["job-search-reuslt-page-container"]}>
+        <div className={classes["job-search-result-container"]}>
+          <br />
+          <div className={classes["job-search-container"]}>
+            <input
+              type="text"
+              className="no-border-right"
+              placeholder="Location"
+              value={location}
+              onChange={locationChangeHandler}
+            />
+
+            <input
+              type="text"
+              className="no-border-right no-border-left"
+              placeholder="Role Title"
+              value={title}
+              onChange={titleChangeHandler}
+            />
+            <Button
+              class="mini no-border-left"
+              onClick={fetchFilteredJobsNonContext}
+            >
+              Update Search
+            </Button>
+          </div>
+          <br />
+          <div className="updateDataButtons">
+            <Button class="mini margin-right-class" onClick={refreshJobs}>
+              New jobs may be available. Refresh?
+            </Button>
+            {autoUpdateEnabled && (
               <Button
-                class="mini no-border-left"
-                onClick={fetchFilteredJobsNonContext}
+                class="mini margin-left-class danger"
+                onClick={disableAutoUpdateHandler}
               >
-                Update Search
+                Disable auto update recent jobs
               </Button>
-            </div>
+            )}
+            {!autoUpdateEnabled && (
+              <Button
+                class="mini hot margin-left-class"
+                onClick={enableAutoUpdateHandler}
+              >
+                Enable auto update jobs
+              </Button>
+            )}
             <br />
-            <FilteredJobItems onOpenApplicationFormModal={props.onClickApply} />
             <br />
           </div>
+          <FilteredJobItems onOpenApplicationFormModal={props.onClickApply} />
+          <br />
         </div>
       </div>
     </>

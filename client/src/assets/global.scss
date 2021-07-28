@@ -68,12 +68,11 @@ input, button, textarea {
   color: $secondary-background;
 }
 
-
-
-
 input.mini-input {
   width: $primary-width / 2;
 }
+
+
 
 .flex-box-container {
   display: flex;
@@ -211,13 +210,31 @@ input.mini-input {
   }
 }
 
-button.margin-right {
-  margin-right: $primary-margin / 4 !important;
+button {
+  &.margin-right {
+    margin-right: $primary-margin / 4 !important; 
+  }
+
+  &.margin-left {
+    margin-left: $primary-margin / 4 !important; 
+  }
 }
 
-button.margin-left {
-  margin-left: $primary-margin / 4 !important;
-}
+// .margin-right {
+//   margin-right: $primary-margin * 2 !important;
+
+//   button {
+//     margin-right: $primary-margin / 4 !important;
+//   }
+// }
+
+// .margin-left {
+//   margin-left: $primary-margin * 2 !important;
+
+//   button {
+//     margin-left: $primary-margin / 4 !important;
+//   }
+// }
 
 ::-webkit-scrollbar {
   width: 20px;
@@ -237,4 +254,18 @@ button.margin-left {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: $secondary-background;
+}
+
+.recent-jobs-container {
+  order: 1;
+  margin-left: $primary-margin;
+  width: 100%;
+
+}
+
+.filtered-jobs-container {
+  order: 2;
+  margin-left: $primary-margin;
+  width: 100%;
+
 }
