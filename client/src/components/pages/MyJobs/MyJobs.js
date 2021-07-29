@@ -21,13 +21,17 @@ const MyJobs = (props) => {
   const { loggedInUser } = useContext(AuthContext);
 
   // methods
+  const deleteJobHandler = async (jobId) => {
+    try {
+      await axios.delete(`http://localhost:5000/jobs/${jobId}`);
+      refreshMyJobsHandler();
+    } catch (error) {
+      alert("Failed");
+    }
+  };
   const refreshMyJobsHandler = async () => {
     getAdvertisedAndAppliedToJobs(loggedInUser);
   };
-
-  useEffect(() => {
-    getAdvertisedAndAppliedToJobs(loggedInUser);
-  }, [getAdvertisedAndAppliedToJobs, loggedInUser, myJobs]);
 
   return (
     <>
@@ -110,6 +114,17 @@ const MyJobs = (props) => {
                     </p>
                   </div>
                 </div>
+                {loggedInUser === job?.advertiserEmail && (
+                  <>
+                    <Button
+                      onClick={() => deleteJobHandler(job._id)}
+                      class="mini danger margin-left apply-now no-transition-transform"
+                    >
+                      Delete Job
+                    </Button>
+                    <br />
+                  </>
+                )}
                 <br />
                 <br />
               </div>

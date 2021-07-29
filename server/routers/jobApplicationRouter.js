@@ -2,6 +2,7 @@ const router = require("express").Router();
 const JobApplication = require("../models/jobApplicationModel");
 const auth = require("../middleware/auth");
 const Job = require("../models/jobModel");
+const User = require("../models/userModel");
 
 // get a specific user job application
 router.get("/:userEmail", async (req, res) => {
@@ -17,12 +18,15 @@ router.get("/:userEmail", async (req, res) => {
   }
 });
 
-router.post("/", auth, async (req, res) => {
+router.post("/:email", auth, async (req, res) => {
   try {
     const { name, applicant, cv, coverLetter, location, urls, jobReference } = req.body;
 
     // find job application so it can be passed as jobReference
     const job = await Job.findById({ _id: jobReference });
+
+    // get logged in user
+    const user = await User.find({ email: req.params.email });
     
     const newJobApplication = new JobApplication({
       name,
@@ -37,11 +41,17 @@ router.post("/", auth, async (req, res) => {
 
     const savedJobApplication = await newJobApplication.save();
 
+    // push job application to the appropriate job
     job.jobApplications.push(newJobApplication);
     await job.save();
 
+    // push job id to a user's jobsAppliedTo field
+    user[0].jobApplications.push(newJobApplication);
+    await user[0].save();
+
     res.json(savedJobApplication);
   } catch (err) {
+    console.log(err);
     res
       .status(500)
       .send({

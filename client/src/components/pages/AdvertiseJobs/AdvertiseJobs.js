@@ -55,6 +55,9 @@ const AdvertiseJobs = (props) => {
     } catch (error) {
       setStatusMessage(error.response.data.errorMessage);
       setIsStatusSuccessful(false);
+
+      // update my-jobs
+      getAdvertisedAndAppliedToJobs(loggedInUser)
     }
   };
 
