@@ -1,7 +1,55 @@
 const router = require("express").Router();
 const Job = require("../models/jobModel");
 const User = require("../models/userModel");
+const JobApplication = require("../models/jobApplicationModel");
 const auth = require("../middleware/auth");
+const { application } = require("express");
+
+// jobs advertised details and job applications job details
+router.get("/jobs-applied-and-advertised/:userEmail", async (req, res) => {
+  try {
+    // jobs advertised by user email
+    const jobsAdvertised = await Job.find({
+      advertiserEmail: req.params.userEmail,
+    });
+
+    // job applications relevant to user email
+    const jobApplications = await JobApplication.find({
+      applicant: req.params.userEmail,
+    });
+
+    let jobsByReferenceArray = [];
+
+    for (let i = 0; i < jobApplications.length; i++) {
+      // get original job by matching it with job reference
+      const jobsByReference = await Job.find({
+        _id: jobApplications[i].jobReference,
+      });
+
+      jobsByReferenceArray.push(jobsByReference[0]);
+    }
+
+    const jobsAdvertisedAndAppliedTo = [
+      ...jobsAdvertised,
+      ...jobsByReferenceArray,
+    ];
+    return res.json(jobsAdvertisedAndAppliedTo);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
+// get a specific job by application's job reference
+router.get("/:jobReference", async (req, res) => {
+  try {
+    const jobs = await Job.find({ _id: req.params.jobReference }).sort({
+      date: -1,
+    });
+    return res.json(jobs);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
 
 // delete selected job
 router.delete("/:jobId", auth, async (req, res) => {
@@ -66,7 +114,6 @@ router.post("/", auth, async (req, res) => {
 
     res.json(savedJob);
   } catch (err) {
-    console.log(err);
     res.status(500).send({ errorMessage: "Unable to save new job" });
   }
 });
@@ -95,6 +142,7 @@ router.get("/recent", auth, async (req, res) => {
     res.status(500).send({ errorMessage: "Unable to retrieve jobs" });
   }
 });
+
 
 // get filtered jobs that match location or title
 router.get("/filter/:location/:title", auth, async (req, res) => {

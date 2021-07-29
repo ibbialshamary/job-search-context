@@ -1,0 +1,44 @@
+@import "../../../assets/variables.scss";
+
+.job-item-container {
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  // background-color: $secondary-background;
+}
+
+.job-item {
+  position: relative;
+  display: flex;
+  text-align: left;
+
+  p {
+    margin-bottom: unset;
+  }
+
+  .icon {
+    color: $hot-background;
+    margin-left: 8px;
+  }
+
+  .salary-location {
+    position: absolute;
+    left: 88%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.flex-box-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.my-jobs-container {
+  padding: 20px;
+  width: 750px;
+}
+
+

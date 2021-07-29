@@ -13,6 +13,7 @@ const AdvertiseJobs = (props) => {
   const { loggedInUser } = useContext(AuthContext);
   const { getFilteredJobs } = useContext(AuthContext);
   const { getRecentJobs } = useContext(AuthContext);
+  const { getAdvertisedAndAppliedToJobs } = useContext(AuthContext);
 
   // states
   const [company, setCompany] = useState("");
@@ -29,6 +30,7 @@ const AdvertiseJobs = (props) => {
   const fetchFilteredJobsNonContext = () => {
     getFilteredJobs("all", "all");
     getRecentJobs();
+    getAdvertisedAndAppliedToJobs(loggedInUser);
     history.push("/job-search-result");
   };
 
@@ -59,7 +61,7 @@ const AdvertiseJobs = (props) => {
   return (
     <>
       <div className="flex-box-container">
-        <div className={classes["login-container"]}>
+        <div className={classes["advertise-jobs-container"]}>
           <div className="form-container login">
             <div className="titles-container">
               <h1>Advertise a Job</h1>

@@ -3,6 +3,20 @@ const JobApplication = require("../models/jobApplicationModel");
 const auth = require("../middleware/auth");
 const Job = require("../models/jobModel");
 
+// get a specific user job application
+router.get("/:userEmail", async (req, res) => {
+  try {
+    const jobApplications = await JobApplication.find({
+      $and: [
+        { name: { $regex: req.params.userEmail } },
+      ],
+    }).sort({ date: -1 });
+    return res.json(jobApplications);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
 router.post("/", auth, async (req, res) => {
   try {
     const { name, applicant, cv, coverLetter, location, urls, jobReference } = req.body;
@@ -28,7 +42,6 @@ router.post("/", auth, async (req, res) => {
 
     res.json(savedJobApplication);
   } catch (err) {
-    console.log(err);
     res
       .status(500)
       .send({

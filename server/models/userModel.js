@@ -7,6 +7,9 @@ const userSchema = new mongoose.Schema({
   jobsAdvertised: [
     { type: Schema.Types.ObjectId, ref: "jobModel" },
   ],
+  jobsAppliedTo: [
+    { type: Schema.Types.ObjectId, ref: "jobModel" },
+  ],
 });
 
 const User = mongoose.model("user", userSchema);

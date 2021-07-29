@@ -53,7 +53,7 @@ const JobItem = (props) => {
       // setStatusMessage(error.response.data.errorMessage);
       // setIsStatusSuccessful(false);
     }
-  }
+  };
 
   const filterAllJobs = () => {
     // this will display all results as back end returns all jobs if all, all are sent as arguments
@@ -64,8 +64,7 @@ const JobItem = (props) => {
     alert("Applied using profile");
   };
 
-  const applyMethodHandler = (job) => {
-    console.log(job);
+  const applyMethodHandler = () => {
     // if (!isProfileSetUp) {
     //   // setSelectedJobTitle(title)
     //   props.onOpenApplicationFormModal();
@@ -74,9 +73,6 @@ const JobItem = (props) => {
     // }
   };
 
-  const getJobApplicationsHandler = (reference) => {
-    console.log("hello");
-  };
 
   return (
     <>
@@ -151,20 +147,26 @@ const JobItem = (props) => {
                   </div>
                 </div>
                 {loggedInUser === job?.advertiserEmail && (
-                  <Button onClick={() => deleteJobHandler(job._id)} class="mini danger apply-now no-transition-transform">
+                  <Button
+                    onClick={() => deleteJobHandler(job._id)}
+                    class="mini danger margin-left apply-now no-transition-transform"
+                  >
                     Delete Job
                   </Button>
                 )}
 
-                <Button
-                  class="mini margin-right apply-now no-transition-transform"
-                  onClick={() => {
-                    setSelectedJob(job);
-                    props.onOpenApplicationFormModal();
-                  }}
-                >
-                  Apply Now
-                </Button>
+                {job?.advertiserEmail !== loggedInUser && (
+                  <Button
+                    class="mini apply-now no-transition-transform"
+                    onClick={() => {
+                      setSelectedJob(job);
+                      props.onOpenApplicationFormModal();
+                    }}
+                  >
+                    Apply Now
+                  </Button>
+                )}
+
                 <br />
                 <br />
                 <br />
@@ -233,20 +235,26 @@ const JobItem = (props) => {
                       </p>
                     </div>
                   </div>
-                  {loggedInUser === job?.advertiserEmail && (
-                    <Button onClick={() => deleteJobHandler(job._id)} class="mini danger apply-now no-transition-transform">
+                  {job?.advertiserEmail === loggedInUser  && (
+                    <Button
+                      onClick={() => deleteJobHandler(job._id)}
+                      class="mini danger  margin-left apply-now no-transition-transform"
+                    >
                       Delete Job
                     </Button>
                   )}
-                  <Button
-                    class="mini margin-right apply-now no-transition-transform"
-                    onClick={() => {
-                      setSelectedJob(job);
-                      props.onOpenApplicationFormModal();
-                    }}
-                  >
-                    Apply Now
-                  </Button>
+                  {job?.advertiserEmail !== loggedInUser && (
+                    <Button
+                      class="mini apply-now no-transition-transform"
+                      onClick={() => {
+                        setSelectedJob(job);
+                        props.onOpenApplicationFormModal();
+                      }}
+                    >
+                      Apply Now
+                    </Button>
+                  )}
+
                   <br />
                   <br />
                   <br />

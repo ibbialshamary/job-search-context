@@ -17,7 +17,26 @@ const AuthContextProvider = (props) => {
 
   const [selectedJob, setSelectedJob] = useState(null);
 
+  const [userJobApplications, setUserJobApplications] = useState([]);
+  const [myJobs, setMyJobs] = useState([]);
+
   // methods
+  // methods starting from here work together
+  const getJobApplications = async (email) => {
+    const jobApplicationsByEmailResponse = await axios.get(
+      `http://localhost:5000/job-application/${email}`
+    );
+    setUserJobApplications(jobApplicationsByEmailResponse.data);
+  };
+
+  const getAdvertisedAndAppliedToJobs = async (email) => {
+    const jobsByReferenceResponse = await axios.get(
+      `http://localhost:5000/jobs/jobs-applied-and-advertised/${email}`
+    );
+    setMyJobs(jobsByReferenceResponse.data);
+  };
+  // methods working together ends here
+
   const getLoggedIn = async () => {
     const loggedInResponse = await axios.get(
       "http://localhost:5000/authenticate/loggedIn"
@@ -72,7 +91,7 @@ const AuthContextProvider = (props) => {
     setRecentJobs(recentJobs.data);
     setRecentJobsCount(recentJobs.data.length);
   };
-  
+
   useEffect(() => {
     getLoggedIn();
   }, []);
@@ -94,7 +113,11 @@ const AuthContextProvider = (props) => {
         recentJobsCount,
         isProfileSetUp,
         selectedJob,
-        setSelectedJob
+        setSelectedJob,
+        getJobApplications,
+        userJobApplications,
+        getAdvertisedAndAppliedToJobs,
+        myJobs,
       }}
     >
       {props.children}
