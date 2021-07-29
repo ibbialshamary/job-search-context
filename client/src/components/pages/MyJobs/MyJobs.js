@@ -8,7 +8,6 @@ import axios from "axios";
 
 const MyJobs = (props) => {
   // state
-  const [isMyJobsEmpty, setIsMyJobsEmpty] = useState();
 
   // context
   const { getJobApplications } = useContext(AuthContext);
@@ -24,10 +23,11 @@ const MyJobs = (props) => {
   // methods
   const refreshMyJobsHandler = async () => {
     getAdvertisedAndAppliedToJobs(loggedInUser);
-    if (myJobs.length < 1) {
-      setIsMyJobsEmpty(true);
-    }
   };
+
+  useEffect(() => {
+    getAdvertisedAndAppliedToJobs(loggedInUser);
+  }, [getAdvertisedAndAppliedToJobs, loggedInUser, myJobs]);
 
   return (
     <>
@@ -38,7 +38,7 @@ const MyJobs = (props) => {
           </h1>
           <p>Your jobs applied to or advertised appear here</p>
           <hr />
-          {isMyJobsEmpty && (
+          {myJobs && myJobs.length < 1 && (
             <>
               <p>You have not applied to or advertised any jobs 🦗</p>
               <Button class="mini" onClick={refreshMyJobsHandler}>
@@ -73,7 +73,11 @@ const MyJobs = (props) => {
                           {job.advertiserEmail === loggedInUser
                             ? "Advertised"
                             : "Applied to"}{" "}
-                          by you {daysPostedCalculator(job.date)} day(s) ago |{" "}
+                          by you{" "}
+                          {daysPostedCalculator(job.date) < 1
+                            ? "today"
+                            : "day(s) ago"}{" "}
+                          |{" "}
                           <span class="hot">
                             {job.jobApplications.length} applicant(s)
                           </span>
@@ -84,7 +88,11 @@ const MyJobs = (props) => {
                           {job.advertiserEmail === loggedInUser
                             ? "Advertised"
                             : "Applied to"}{" "}
-                          by you {daysPostedCalculator(job.date)} day(s) ago |{" "}
+                          by you{" "}
+                          {daysPostedCalculator(job.date) < 1
+                            ? "today"
+                            : "day(s) ago"}{" "}
+                          |{" "}
                           <span className="hot">
                             {job.jobApplications.length} applicant(s)
                           </span>

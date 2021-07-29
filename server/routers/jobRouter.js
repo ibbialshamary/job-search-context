@@ -129,7 +129,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 // get recent jobs
-router.get("/recent", auth, async (req, res) => {
+router.get("/recent-jobs/recent", auth, async (req, res) => {
   // get today's date
   let today = new Date(Date.now()).toISOString().split("T")[0];
   try {

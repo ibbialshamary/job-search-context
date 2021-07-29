@@ -87,7 +87,7 @@ const AuthContextProvider = (props) => {
   };
 
   const getRecentJobs = async () => {
-    const recentJobs = await axios.get("http://localhost:5000/jobs/recent");
+    const recentJobs = await axios.get("http://localhost:5000/jobs/recent-jobs/recent");
     setRecentJobs(recentJobs.data);
     setRecentJobsCount(recentJobs.data.length);
   };
