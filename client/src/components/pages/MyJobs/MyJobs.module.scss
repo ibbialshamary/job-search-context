@@ -4,8 +4,12 @@
   padding: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
-  // background-color: $secondary-background;
+  &.applied {
+    background-color: $primary-background;
+    color: white;
+  }
 }
+
 
 .job-item {
   position: relative;
@@ -23,7 +27,7 @@
 
   .salary-location {
     position: absolute;
-    left: 88%;
+    left: 80%;
     top: 50%;
     transform: translate(-50%, -50%);
   }
@@ -40,5 +44,4 @@
   padding: 20px;
   width: 750px;
 }
-
 

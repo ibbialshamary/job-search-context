@@ -4,6 +4,8 @@ import React, { useState, useEffect, createContext } from "react";
 const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
+  const [globalResponseStatus, setGlobalResponseStatus] = useState();
+
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [loggedInUser, setLoggedInUser] = useState(undefined);
 
@@ -30,10 +32,12 @@ const AuthContextProvider = (props) => {
   };
 
   const getAdvertisedAndAppliedToJobs = async (email) => {
-    const jobsByReferenceResponse = await axios.get(
-      `http://localhost:5000/jobs/jobs-applied-and-advertised/${email}`
-    );
-    setMyJobs(jobsByReferenceResponse.data);
+    if (email) {
+      const jobsByReferenceResponse = await axios.get(
+        `http://localhost:5000/jobs/jobs-applied-and-advertised/${email}`
+      );
+      setMyJobs(jobsByReferenceResponse.data);
+    }
   };
   // methods working together ends here
 
@@ -87,7 +91,9 @@ const AuthContextProvider = (props) => {
   };
 
   const getRecentJobs = async () => {
-    const recentJobs = await axios.get("http://localhost:5000/jobs/recent-jobs/recent");
+    const recentJobs = await axios.get(
+      "http://localhost:5000/jobs/recent-jobs/recent"
+    );
     setRecentJobs(recentJobs.data);
     setRecentJobsCount(recentJobs.data.length);
   };
@@ -118,6 +124,8 @@ const AuthContextProvider = (props) => {
         userJobApplications,
         getAdvertisedAndAppliedToJobs,
         myJobs,
+        globalResponseStatus,
+        setGlobalResponseStatus
       }}
     >
       {props.children}

@@ -4,7 +4,7 @@ import Button from "../../layout/Button/Button";
 import Modal from "../../layout/Modal/Modal";
 import classes from "./ApplicationForm.module.scss";
 import axios from "axios";
-import firebase from "../../../../src/util/firebase"
+import firebase from "../../../../src/util/firebase";
 import { v4 as uuid } from "uuid";
 
 const ApplicationForm = (props) => {
@@ -23,6 +23,9 @@ const ApplicationForm = (props) => {
   const [statusMessage, setStatusMessage] = useState("");
   const [isStatusSuccessful, setIsStatusSuccessful] = useState(false);
 
+  const [uploadStatusMessage, setUploadStatusMessage] = useState("");
+  const [isUploadStatusSuccessful, setIsUploadStatusSuccessful] =
+    useState(undefined);
 
   // methods
   const nicknameChangeHandler = (e) => {
@@ -30,14 +33,29 @@ const ApplicationForm = (props) => {
     // setPasswordIsValid(email.includes("@") && e.target.value.trim().length > 6);
   };
 
+  const clearUploadStatus = () => {
+    setUploadStatusMessage("");
+    setIsUploadStatusSuccessful(undefined);
+  };
+
   const cvChangeHandler = async (e) => {
+    clearUploadStatus();
+    setUploadStatusMessage("Uploading CV...");
     const file = e.target.files[0];
     const id = uuid();
     const cvFilesRef = firebase.storage().ref("files").child(id);
     await cvFilesRef.put(file);
-    cvFilesRef.getDownloadURL().then((url) => {
-      setCv(url);
-    });
+    cvFilesRef
+      .getDownloadURL()
+      .then((url) => {
+        setCv(url);
+        setIsUploadStatusSuccessful(true);
+        setUploadStatusMessage(`CV Status: Successfully uploaded CV`);
+      })
+      .catch((err) => {
+        setIsUploadStatusSuccessful(false);
+        setUploadStatusMessage(`CV Status: ${err}`);
+      });
   };
 
   const coverLetterChangeHandler = (e) => {
@@ -72,7 +90,7 @@ const ApplicationForm = (props) => {
       };
 
       await axios.post(
-        "http://localhost:5000/job-application",
+        `http://localhost:5000/job-application/${loggedInUser}`,
         applicationFormData
       );
 
@@ -175,12 +193,27 @@ const ApplicationForm = (props) => {
             Go Back
           </Button>
 
-          <div className="status-message-container">
-            {isStatusSuccessful === false && statusMessage && (
-              <p className="status-message error">{statusMessage}</p>
+          <div className="file-upload status-message-container">
+            {isUploadStatusSuccessful === true && uploadStatusMessage && (
+              <p className="file-upload status-message success">
+                {uploadStatusMessage}
+              </p>
             )}
+            {isUploadStatusSuccessful === undefined && uploadStatusMessage && (
+              <p className="file-upload status-message pending">{uploadStatusMessage}</p>
+            )}
+            {isUploadStatusSuccessful === false && uploadStatusMessage && (
+              <p className="file-upload status-message success">
+                {uploadStatusMessage}
+              </p>
+            )}
+          </div>
+          <div className="status-message-container">
             {isStatusSuccessful === true && statusMessage && (
               <p className="status-message success">{statusMessage}</p>
+            )}
+            {isStatusSuccessful === false && statusMessage && (
+              <p className="status-message error">{statusMessage}</p>
             )}
           </div>
         </form>

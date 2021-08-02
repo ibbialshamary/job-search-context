@@ -30,7 +30,9 @@ const MyJobs = (props) => {
     }
   };
   const refreshMyJobsHandler = async () => {
-    getAdvertisedAndAppliedToJobs(loggedInUser);
+    if (loggedInUser) {
+      getAdvertisedAndAppliedToJobs(loggedInUser);
+    }
   };
 
   return (
@@ -56,7 +58,11 @@ const MyJobs = (props) => {
           {myJobs &&
             myJobs.map((job, index) => (
               <div key={index}>
-                <div className={classes["job-item-container"]}>
+                <div
+                  className={`${classes["job-item-container"]} ${
+                    job.advertiserEmail === loggedInUser ? "" : classes.applied
+                  }`}
+                >
                   <div className={classes["job-item"]}>
                     <p>
                       <strong>{job.title}</strong> at

@@ -66,7 +66,15 @@ router.delete("/:jobId", auth, async (req, res) => {
       user[0].jobsAdvertised.splice(index, 1);
       await user[0].save();
     }
-    // above code ends here
+    // delete user's jobAdvertised field references code ends here
+
+    // remove all job applications where their job references matches the job getting deleted here
+    const jobApplications = await JobApplication.find({
+      jobReference: req.params.jobId,
+    });
+    for (let i = 0; i < jobApplications.length; i++) {
+      jobApplications[i].delete();
+    }
 
     return res.json({
       id: job._id,
@@ -74,6 +82,7 @@ router.delete("/:jobId", auth, async (req, res) => {
       status: "Successfully deleted job",
     });
   } catch (err) {
+    console.log(err);
     res.status(500).send({ errorMessage: "Unable to delete job" });
   }
 });
@@ -142,7 +151,6 @@ router.get("/recent-jobs/recent", auth, async (req, res) => {
     res.status(500).send({ errorMessage: "Unable to retrieve jobs" });
   }
 });
-
 
 // get filtered jobs that match location or title
 router.get("/filter/:location/:title", auth, async (req, res) => {

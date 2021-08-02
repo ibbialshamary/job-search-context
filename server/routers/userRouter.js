@@ -110,6 +110,35 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// edit profile field in user
+router.patch("/users/:email", async (req, res) => {
+  try {
+    const { name, applicant, cv, coverLetter, location, urls, jobReference } =
+      req.body;
+    let today = new Date(Date.now()).toISOString().split("T")[0];
+    const user = await User.updateOne(
+      { email: req.params.email },
+      {
+        $set: {
+          profile: {
+            name: name,
+            applicant: applicant,
+            cv: cv,
+            coverLetter: coverLetter,
+            location: location,
+            urls: urls,
+            date: today,
+          },
+        },
+      }
+    );
+    console.log(user);
+    res.json(user[0]);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 router.get("/users", async (req, res) => {
   try {
     const users = await User.find();

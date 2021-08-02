@@ -130,6 +130,11 @@ input.mini-input {
           background-color: $danger-background;
         }
 
+        &.pending {
+          color: $amber-text;
+          background-color: $amber-background;
+        }
+
         &.success {
           color: $success-text;
           background-color: $success-background;
@@ -141,11 +146,7 @@ input.mini-input {
 
 #welcomeMessageFlexBox {
   flex: 1;
-  // background-color: $secondary-background;
   color: rgb(46,45,47);
-  // background-image: url("https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=941&q=80");
-  // background-repeat: no-repeat;
-  // background-size: cover;
 
   @media only screen and (max-width: 1350px) {
     display: none;
@@ -224,24 +225,8 @@ button {
   }
 }
 
-// .margin-right {
-//   margin-right: $primary-margin * 2 !important;
-
-//   button {
-//     margin-right: $primary-margin / 4 !important;
-//   }
-// }
-
-// .margin-left {
-//   margin-left: $primary-margin * 2 !important;
-
-//   button {
-//     margin-left: $primary-margin / 4 !important;
-//   }
-// }
-
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 12px;
 }
 
 /* Track */
@@ -253,6 +238,8 @@ button {
 ::-webkit-scrollbar-thumb {
   background: $hot-background;
   transition: $primary-transition;
+  border-radius: 12px;
+
 }
 
 /* Handle on hover */
