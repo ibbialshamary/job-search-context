@@ -11,6 +11,7 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 import { useHistory } from "react-router-dom";
+import logo from "../../../assets/images/buzzra-bee-no-bg.png";
 
 // this component uses styled components unlike the rest of the app
 const Navbar = () => {
@@ -21,8 +22,12 @@ const Navbar = () => {
     <>
       <Nav>
         <NavLink to="/">
-          {/* <img src={require('../../images/logo.svg')} alt="" /> */}
-          <h1 className="logo-underline">Buzzra.</h1>
+          <h1 className="logo-underline">
+            <img
+              src={logo}
+              alt="Buzzra."
+            />
+          </h1>
         </NavLink>
         <Bars />
         <NavMenu>
@@ -47,7 +52,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink to="/my-jobs" activeStyle>
                 My Jobs
-              </NavLink>              
+              </NavLink>
               <NavLink to="/profile" activeStyle>
                 Profile
               </NavLink>
@@ -65,10 +70,7 @@ const Navbar = () => {
         {loggedIn === false && (
           <>
             <NavBtn>
-              <Button
-                class="mini"
-                onClick={() => history.push("/login")}
-              >
+              <Button class="mini" onClick={() => history.push("/login")}>
                 Login
               </Button>
             </NavBtn>

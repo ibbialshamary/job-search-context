@@ -14,10 +14,8 @@ p {
 }
 
 body {
-  // display: grid;
-  // place-items: center;
   text-align: center;
-  // background-color: #fafafa !important;
+  background-color: white;
 }
 
 a {
@@ -66,6 +64,10 @@ input, button, textarea {
 .logo-underline {
   text-decoration: underline;
   color: $secondary-background;
+
+  img {
+    width: 60px;
+  }
 }
 
 input.mini-input {
@@ -208,9 +210,20 @@ input.mini-input {
     padding: $primary-padding;
     float: left;
     transition: $primary-transition;
+    
     &:hover {
       background-color: $primary-background;
       color: $primary-text;
+    }
+
+    &.applied {
+      // background-color: $primary-background;
+      border: solid 1px white;
+
+      &:hover {
+        background-color: white;
+        color: black;
+      }
     }
   }
 }

@@ -5,26 +5,31 @@ import { MdLocationOn as LocationIcon } from "react-icons/md";
 import { FaHotjar as HotIcon, FaPoundSign as SalaryIcon } from "react-icons/fa";
 import Button from "../../../layout/Button/Button";
 import axios from "axios";
+import Modal from "../../../layout/Modal/Modal";
 
 const JobItem = (props) => {
   // state
   const [isFilteredJobsResultEmpty, setIsFilteredJobsResultEmpty] =
     useState(false);
   const [isRecentJobsResultEmpty, setIsRecentJobsResultEmpty] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isStatusSuccessful, setIsStatusSuccessful] = useState(false);
 
   // context
-  const { filteredJobs } = useContext(AuthContext);
-  const { getFilteredJobs } = useContext(AuthContext);
-  const { getRecentJobs } = useContext(AuthContext);
-  const { daysPostedCalculator } = useContext(AuthContext);
-  const { isProfileSetUp } = useContext(AuthContext);
-  const { setSelectedJob } = useContext(AuthContext);
-  const { loggedInUser } = useContext(AuthContext);
-
-  const { getJobApplications } = useContext(AuthContext);
-  const { jobApplications } = useContext(AuthContext);
-
-  const { recentJobs } = useContext(AuthContext);
+  const {
+    filteredJobs,
+    getFilteredJobs,
+    getRecentJobs,
+    daysPostedCalculator,
+    isProfileSetUp,
+    setSelectedJob,
+    selectedJob,
+    loggedInUser,
+    getJobApplications,
+    jobApplications,
+    recentJobs,
+    userDetails,
+  } = useContext(AuthContext);
 
   useEffect(() => {
     !filteredJobs || (filteredJobs && filteredJobs.length < 1)
@@ -39,6 +44,43 @@ const JobItem = (props) => {
   }, [recentJobs]);
 
   // methods
+  const test = async (profileArray) => {
+    let profileArrayJobReference;
+    if (selectedJob) {
+      profileArrayJobReference = {
+        ...profileArray,
+        jobReference: selectedJob._id,
+      };
+    }
+
+    await axios
+      .post(
+        `http://localhost:5000/job-application/${loggedInUser}`,
+        profileArrayJobReference
+      )
+      .then(() => {
+        alert("Success");
+        getFilteredJobs("all", "all");
+        setIsStatusSuccessful(true);
+        setStatusMessage(
+          "Successfully submitted application, jobs have been refreshed"
+        );
+      })
+      .catch((err) => {
+        setIsStatusSuccessful(true);
+        setStatusMessage(`Failed to submit application; ${err}`);
+      });
+  };
+
+  const applyNowHandler = (job) => {
+    setSelectedJob(job);
+    const userProfile = userDetails.profile[0];
+
+    userProfile.applicant
+      ? test(userDetails.profile[0])
+      : props.onOpenApplicationFormModal();
+  };
+
   const fetchFilteredJobsNonContext = () => {
     getFilteredJobs("all", "all");
     getRecentJobs();
@@ -60,22 +102,23 @@ const JobItem = (props) => {
     getFilteredJobs("all", "all");
   };
 
-  const applyUsingProfile = () => {
-    alert("Applied using profile");
-  };
-
-  const applyMethodHandler = () => {
-    // if (!isProfileSetUp) {
-    //   // setSelectedJobTitle(title)
-    //   props.onOpenApplicationFormModal();
-    // } else {
-    //   applyUsingProfile();
-    // }
-  };
-
-
   return (
     <>
+      {statusMessage && (
+        <Modal>
+          {" "}
+          <div className="status-message-container">
+            {isStatusSuccessful === true && statusMessage && (
+              <p className="status-message success">{statusMessage}</p>
+            )}
+            {isStatusSuccessful === false && statusMessage && (
+              <p className="status-message error">{statusMessage}</p>
+            )}
+          </div><br />
+          <Button>Okay</Button>
+        </Modal>
+      )}
+
       <div className="flex-box-container">
         <div className="filtered-jobs-container margin-left">
           <h1>
@@ -158,10 +201,7 @@ const JobItem = (props) => {
                 {job?.advertiserEmail !== loggedInUser && (
                   <Button
                     class="mini apply-now no-transition-transform"
-                    onClick={() => {
-                      setSelectedJob(job);
-                      props.onOpenApplicationFormModal();
-                    }}
+                    onClick={applyNowHandler.bind(this, job)}
                   >
                     Apply Now
                   </Button>
@@ -235,7 +275,7 @@ const JobItem = (props) => {
                       </p>
                     </div>
                   </div>
-                  {job?.advertiserEmail === loggedInUser  && (
+                  {job?.advertiserEmail === loggedInUser && (
                     <Button
                       onClick={() => deleteJobHandler(job._id)}
                       class="mini danger  margin-left apply-now no-transition-transform"

@@ -22,6 +22,8 @@ const AuthContextProvider = (props) => {
   const [userJobApplications, setUserJobApplications] = useState([]);
   const [myJobs, setMyJobs] = useState([]);
 
+  const [userDetails, setUserDetails] = useState([]);
+
   // methods
   // methods starting from here work together
   const getJobApplications = async (email) => {
@@ -47,6 +49,16 @@ const AuthContextProvider = (props) => {
     );
     setLoggedIn(loggedInResponse.data.loggedIn);
     setLoggedInUser(loggedInResponse.data.loggedInUser);
+    getUserDetails(loggedInUser);
+  };
+
+  const getUserDetails = async (email) => {
+    if (email) {
+      const userDetailsResponse = await axios.get(
+        `http://localhost:5000/authenticate/user-details/${email}`
+      );
+      setUserDetails(userDetailsResponse.data);
+    }
   };
 
   const getAllJobs = async () => {
@@ -100,7 +112,10 @@ const AuthContextProvider = (props) => {
 
   useEffect(() => {
     getLoggedIn();
-  }, []);
+    if (loggedInUser) {
+      getAdvertisedAndAppliedToJobs(loggedInUser);
+    }
+  }, [loggedInUser]);
 
   return (
     <AuthContext.Provider
@@ -125,7 +140,8 @@ const AuthContextProvider = (props) => {
         getAdvertisedAndAppliedToJobs,
         myJobs,
         globalResponseStatus,
-        setGlobalResponseStatus
+        setGlobalResponseStatus,
+        userDetails,
       }}
     >
       {props.children}

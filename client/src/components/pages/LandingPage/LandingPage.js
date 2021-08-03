@@ -3,6 +3,7 @@ import AuthContext from "../../../context/AuthContext";
 import Button from "../../layout/Button/Button";
 import classes from "./LandingPage.module.scss";
 import { useHistory } from "react-router";
+import logo from "../../../assets/images/buzzra-bee-no-bg.png";
 
 const LandingPage = () => {
   // states
@@ -10,7 +11,7 @@ const LandingPage = () => {
   const [title, setTitle] = useState("");
 
   const history = useHistory();
-  
+
   // context
   const { fetchFilteredJobs } = useContext(AuthContext);
   const { getAllJobs } = useContext(AuthContext);
@@ -38,7 +39,11 @@ const LandingPage = () => {
           <div>
             <h1>
               Find your dream <br />
-              job with <span className="logo-underline">Buzzra.</span>
+              job with{" "}
+              <span className="logo-underline">
+                {" "}
+                <img src={logo} alt="Buzzra." />
+              </span>
             </h1>
             <p>
               Get your dream job by giving this service,

@@ -50,11 +50,11 @@ const ApplicationForm = (props) => {
       .then((url) => {
         setCv(url);
         setIsUploadStatusSuccessful(true);
-        setUploadStatusMessage(`CV Status: Successfully uploaded CV`);
+        setUploadStatusMessage(`Successfully uploaded CV`);
       })
       .catch((err) => {
         setIsUploadStatusSuccessful(false);
-        setUploadStatusMessage(`CV Status: ${err}`);
+        setUploadStatusMessage(`${err}`);
       });
   };
 

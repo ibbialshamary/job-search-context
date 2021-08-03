@@ -114,7 +114,7 @@ const MyJobs = (props) => {
                         .split(",")
                         .map((tag, index) => (
                           <div className="tags-container" key={index}>
-                            <p className="tag-item">{tag}</p>
+                            <p className="tag-item applied">{tag}</p>
                           </div>
                         ))}
                     </p>
