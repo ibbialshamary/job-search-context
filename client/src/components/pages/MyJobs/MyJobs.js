@@ -26,7 +26,7 @@ const MyJobs = (props) => {
       await axios.delete(`http://localhost:5000/jobs/${jobId}`);
       refreshMyJobsHandler();
     } catch (error) {
-      alert("Failed");
+      console.log(error);
     }
   };
   const refreshMyJobsHandler = async () => {

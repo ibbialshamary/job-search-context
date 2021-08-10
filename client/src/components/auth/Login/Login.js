@@ -11,6 +11,9 @@ const Login = (props) => {
   // variables
   const history = useHistory();
 
+  // context
+  const { showModal } = useContext(AuthContext);
+
   // states
   const [email, setEmail] = useState("");
   const [emailIsValid, setEmailIsValid] = useState();
@@ -87,79 +90,83 @@ const Login = (props) => {
 
   return (
     <>
-    {/* <Navbar /> */}
-    <div className="flex-box-container">
-      <div className={classes["login-container"]}>
-        <div className="form-container login">
-          <div className="titles-container">
-            <h1>Login</h1>
-            <p>
-              Don't have an account? <Link to="/register">Register</Link>
-            </p>
-          </div>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div
-              className={`${classes.control} ${
-                emailIsValid === false ? classes.invalid : ""
-              }`}
-            >
-              <label htmlFor="email">Email Address</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Email"
-                onChange={emailChangeHandler}
-                onBlur={validateEmailHandler}
-                value={email}
-              />
+      {/* <Navbar /> */}
+      <div className="flex-box-container">
+        <div className={classes["login-container"]}>
+          <div className="form-container login">
+            <div className="titles-container">
+              <h1>Login</h1>
+              <p>
+                Don't have an account? <Link to="/register">Register</Link>
+              </p>
             </div>
-            <br />
-            <div
-              className={`${classes.control} ${
-                passwordIsValid === false ? classes.invalid : ""
-              }`}
-            >
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Password"
-                onChange={passwordChangeHandler}
-                onBlur={validatePasswordHandler}
-                value={password}
-              />
-            </div>
-            <br />
-            <Button
-              type="submit"
-              class={!formIsValid ? "disabled" : null}
-              onClick={login}
-            >
-              Login
-            </Button>
-            <br />
-            <Button class="google-register-button">
-              <img
-                width="28px"
-                src="https://img.icons8.com/color-glass/48/000000/google-logo.png"
-                alt="GI |"
-              />{" "}
-              Login with Google
-            </Button>
-            <br />
-            <Button class="secondary" onClick={props.onClickForgotPassword}>
-              Forgotten Password? Reset Here
-            </Button>
-            <br />
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div
+                className={`${classes.control} ${
+                  emailIsValid === false ? classes.invalid : ""
+                }`}
+              >
+                <label htmlFor="email">Email Address</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  onChange={emailChangeHandler}
+                  onBlur={validateEmailHandler}
+                  value={email}
+                />
+              </div>
+              <br />
+              <div
+                className={`${classes.control} ${
+                  passwordIsValid === false ? classes.invalid : ""
+                }`}
+              >
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  onChange={passwordChangeHandler}
+                  onBlur={validatePasswordHandler}
+                  value={password}
+                />
+              </div>
+              <br />
+              <Button
+                type="submit"
+                class={!formIsValid ? "disabled" : null}
+                onClick={login}
+              >
+                Login
+              </Button>
+              <br />
+              <Button class="google-register-button">
+                <img
+                  width="28px"
+                  src="https://img.icons8.com/color-glass/48/000000/google-logo.png"
+                  alt="GI |"
+                />{" "}
+                Login with Google
+              </Button>
+              <br />
+              <Button class="secondary" onClick={showModal}>
+                Forgotten Password? Reset Here
+              </Button>
+              <br />
 
-            <div className="status-message-container">
-              {isStatusSuccessful === false && statusMessage && <p className="status-message error">{statusMessage}</p>}
-              {isStatusSuccessful === true && statusMessage && <p className="status-message success">{statusMessage}</p>}
-            </div>
-          </form>
+              <div className="status-message-container">
+                {isStatusSuccessful === false && statusMessage && (
+                  <p className="status-message error">{statusMessage}</p>
+                )}
+                {isStatusSuccessful === true && statusMessage && (
+                  <p className="status-message success">{statusMessage}</p>
+                )}
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

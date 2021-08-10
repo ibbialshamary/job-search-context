@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../../../context/AuthContext";
 import Button from "../../layout/Button/Button";
 import Modal from "../../layout/Modal/Modal";
 import classes from "./ForgottenPassword.module.scss";
 
 const ForgottenPassword = (props) => {
+  // context
+  const { hideModal } = useContext(AuthContext);
+
   return (
-    <Modal onClose={props.onCloseForgotPasswordModal}>
+    <Modal>
       <div className="form-container">
         <strong>
           <h1>Password Reset</h1>
@@ -18,7 +22,9 @@ const ForgottenPassword = (props) => {
           <label htmlFor="email-address">Email Address</label>
           <input type="email" />
           <Button>Send Reset Instructions</Button>
-          <Button class="secondary" onClick={props.onCloseForgotPasswordModal}>Go Back</Button>
+          <Button class="secondary" onClick={hideModal}>
+            Go Back
+          </Button>
         </form>
       </div>
     </Modal>

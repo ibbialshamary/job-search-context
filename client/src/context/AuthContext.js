@@ -24,7 +24,11 @@ const AuthContextProvider = (props) => {
 
   const [userDetails, setUserDetails] = useState([]);
 
+  // modal
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+
   // methods
+
   // methods starting from here work together
   const getJobApplications = async (email) => {
     const jobApplicationsByEmailResponse = await axios.get(
@@ -42,6 +46,14 @@ const AuthContextProvider = (props) => {
     }
   };
   // methods working together ends here
+
+  const showModal = () => {
+    setModalIsVisible(true);
+  };
+
+  const hideModal = () => {
+    setModalIsVisible(false);
+  };
 
   const getLoggedIn = async () => {
     const loggedInResponse = await axios.get(
@@ -141,7 +153,11 @@ const AuthContextProvider = (props) => {
         myJobs,
         globalResponseStatus,
         setGlobalResponseStatus,
+        getUserDetails,
         userDetails,
+        showModal,
+        hideModal,
+        modalIsVisible,
       }}
     >
       {props.children}

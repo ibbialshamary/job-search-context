@@ -69,7 +69,10 @@ button {
     margin-left: $primary-margin / 4 !important;
   }
 
-
+  &.is-loading {
+    background-color: orangered;
+    color: black;
+  }
 }
 
 .google-register-button {

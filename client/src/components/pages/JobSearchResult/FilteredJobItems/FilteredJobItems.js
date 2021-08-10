@@ -14,6 +14,7 @@ const JobItem = (props) => {
   const [isRecentJobsResultEmpty, setIsRecentJobsResultEmpty] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [isStatusSuccessful, setIsStatusSuccessful] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // context
   const {
@@ -28,9 +29,14 @@ const JobItem = (props) => {
     getJobApplications,
     jobApplications,
     recentJobs,
+    getUserDetails,
     userDetails,
+    showModal,
+    hideModal,
+    modalIsVisible,
   } = useContext(AuthContext);
 
+  // effects
   useEffect(() => {
     !filteredJobs || (filteredJobs && filteredJobs.length < 1)
       ? setIsFilteredJobsResultEmpty(true)
@@ -43,8 +49,12 @@ const JobItem = (props) => {
       : setIsRecentJobsResultEmpty(false);
   }, [recentJobs]);
 
+  useEffect(() => {
+    getUserDetails(loggedInUser);
+  }, []);
+
   // methods
-  const test = async (profileArray) => {
+  const generateSetUpProfile = async (profileArray) => {
     let profileArrayJobReference;
     if (selectedJob) {
       profileArrayJobReference = {
@@ -53,21 +63,24 @@ const JobItem = (props) => {
       };
     }
 
+    setIsLoading(true);
     await axios
       .post(
         `http://localhost:5000/job-application/${loggedInUser}`,
         profileArrayJobReference
       )
       .then(() => {
-        alert("Success");
         getFilteredJobs("all", "all");
         setIsStatusSuccessful(true);
+        showModal();
         setStatusMessage(
           "Successfully submitted application, jobs have been refreshed"
         );
+        setIsLoading(false);
       })
       .catch((err) => {
         setIsStatusSuccessful(true);
+        showModal();
         setStatusMessage(`Failed to submit application; ${err}`);
       });
   };
@@ -76,8 +89,9 @@ const JobItem = (props) => {
     setSelectedJob(job);
     const userProfile = userDetails.profile[0];
 
-    userProfile.applicant
-      ? test(userDetails.profile[0])
+    // if userProfile is valid and there is an applicant property, call the method to use profile
+    userProfile && userProfile.applicant
+      ? generateSetUpProfile(userDetails.profile[0])
       : props.onOpenApplicationFormModal();
   };
 
@@ -91,7 +105,6 @@ const JobItem = (props) => {
       await axios.delete(`http://localhost:5000/jobs/${jobId}`);
       fetchFilteredJobsNonContext();
     } catch (error) {
-      alert("Failed");
       // setStatusMessage(error.response.data.errorMessage);
       // setIsStatusSuccessful(false);
     }
@@ -104,8 +117,8 @@ const JobItem = (props) => {
 
   return (
     <>
-      {statusMessage && (
-        <Modal>
+      {statusMessage && modalIsVisible && (
+        <Modal onClose={hideModal}>
           {" "}
           <div className="status-message-container">
             {isStatusSuccessful === true && statusMessage && (
@@ -114,8 +127,9 @@ const JobItem = (props) => {
             {isStatusSuccessful === false && statusMessage && (
               <p className="status-message error">{statusMessage}</p>
             )}
-          </div><br />
-          <Button>Okay</Button>
+          </div>
+          <br />
+          <Button onClick={hideModal}>Okay</Button>
         </Modal>
       )}
 
@@ -200,10 +214,13 @@ const JobItem = (props) => {
 
                 {job?.advertiserEmail !== loggedInUser && (
                   <Button
-                    class="mini apply-now no-transition-transform"
+                    class={
+                      "mini apply-now no-transition-transform" +
+                      (isLoading ? "is-loading" : "")
+                    }
                     onClick={applyNowHandler.bind(this, job)}
                   >
-                    Apply Now
+                    {isLoading ? "Submitting..." : "Apply Now"}
                   </Button>
                 )}
 
@@ -285,13 +302,13 @@ const JobItem = (props) => {
                   )}
                   {job?.advertiserEmail !== loggedInUser && (
                     <Button
-                      class="mini apply-now no-transition-transform"
-                      onClick={() => {
-                        setSelectedJob(job);
-                        props.onOpenApplicationFormModal();
-                      }}
+                      class={
+                        "mini apply-now no-transition-transform" +
+                        (isLoading ? "is-loading" : "")
+                      }
+                      onClick={applyNowHandler.bind(this, job)}
                     >
-                      Apply Now
+                      {isLoading ? "Submitting..." : "Apply Now"}
                     </Button>
                   )}
 
