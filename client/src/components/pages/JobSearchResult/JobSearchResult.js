@@ -84,7 +84,7 @@ const JobSearchResult = (props) => {
             </Button>
           </div>
           <br />
-          <div className="updateDataButtons">
+          <div className="update-data-buttons">
             <Button class="mini margin-right-class" onClick={refreshJobs}>
               New jobs may be available. Refresh?
             </Button>

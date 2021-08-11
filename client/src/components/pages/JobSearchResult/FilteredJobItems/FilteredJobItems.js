@@ -81,7 +81,8 @@ const JobItem = (props) => {
       .catch((err) => {
         setIsStatusSuccessful(true);
         showModal();
-        setStatusMessage(`Failed to submit application; ${err}`);
+        setIsLoading(false);
+        setStatusMessage(`Failed to submit application`);
       });
   };
 
@@ -133,7 +134,7 @@ const JobItem = (props) => {
         </Modal>
       )}
 
-      <div className="flex-box-container">
+      <div className="flex-box-container flex-box-container--filtered-jobs">
         <div className="filtered-jobs-container margin-left">
           <h1>
             <strong>Jobs filtered just for you</strong>
@@ -216,7 +217,7 @@ const JobItem = (props) => {
                   <Button
                     class={
                       "mini apply-now no-transition-transform" +
-                      (isLoading ? "is-loading" : "")
+                      (isLoading ? " is-loading" : "")
                     }
                     onClick={applyNowHandler.bind(this, job)}
                   >
@@ -304,7 +305,7 @@ const JobItem = (props) => {
                     <Button
                       class={
                         "mini apply-now no-transition-transform" +
-                        (isLoading ? "is-loading" : "")
+                        (isLoading ? " is-loading" : "")
                       }
                       onClick={applyNowHandler.bind(this, job)}
                     >

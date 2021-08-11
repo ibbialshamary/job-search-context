@@ -1,15 +1,44 @@
+@import "../../../assets/variables.scss";
+
 .landing-page-container {
   flex: 1;
-  // background-color: rgb(247,245,247);
   color: rgb(46,45,47);
   order: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  // z-index: -1;
+
+  .job-search-container {
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  
+    @media only screen and (max-width: 1200px) {
+      width: 1000px;
+      input {
+        width: 40% !important;
+      }
+    }
+  
+    @media only screen and (max-width: 1050px) {
+      width: 700px;
+      input {
+        width: 35% !important;
+      }
+    }
+  
+    @media only screen and (max-width: 760px) {
+      width: 500px;
+      input {
+        width: 100% !important;
+      }
+    }
+  
+    @media only screen and (max-width: 550px) {
+      width: 300px;
+      input {
+        width: 100% !important;
+      }
+    }
+  }
 }
 
-.job-search-container {
-  padding: 20px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-}

@@ -5,7 +5,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // z-index: -1;
+  
+  @media only screen and (max-width: 550px) {
+    .job-search-container {
+      font-size: 12px;
+      
+      width: 300px;
+      input {
+        width: 100% !important;
+      }
+    }
+  }
 }
 
 .control.invalid input {

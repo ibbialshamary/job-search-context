@@ -7,7 +7,10 @@ import Button from "../../layout/Button/Button";
 import axios from "axios";
 
 const MyJobs = (props) => {
-  // state
+  // useEffect
+  useEffect(() => {
+    refreshMyJobsHandler();
+  }, []);
 
   // context
   const { getJobApplications } = useContext(AuthContext);
@@ -46,7 +49,13 @@ const MyJobs = (props) => {
           <hr />
           {myJobs && myJobs.length < 1 && (
             <>
-              <p>You have not applied to or advertised any jobs 🦗</p>
+              <p>
+                You have not applied to or advertised any jobs 🦗 <br />
+                <span className="hot">
+                  If your applied to job does not appear here, it is likely
+                  deleted
+                </span>
+              </p>
               <Button class="mini" onClick={refreshMyJobsHandler}>
                 Refresh my jobs
               </Button>{" "}

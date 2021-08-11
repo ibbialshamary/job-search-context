@@ -79,14 +79,25 @@ input.mini-input {
 .flex-box-container {
   display: flex;
   height: 94vh;
-  // .my-jobs-container {
-  //   align-items: center;
-  //   justify-content: center;
-  // }
+
+  @media only screen and (max-width: 550px) {
+      font-size: 12px;
+  }
+
+  @media only screen and (max-width: 770px) {
+    display: unset;
+    height: unset;
+  }
+
+  @media only screen and (max-width: 1150px) {
+    &--filtered-jobs {
+      display: unset;
+    }
+  }
+
 }
 
 .titles-container {
-  // margin-top: 15%;
   h1 {
     font-weight: 700;
   }
@@ -96,12 +107,10 @@ input.mini-input {
   }
 }
 
-.form-container.login {
-  // border-radius: $primary-radius;
-  padding: $primary-padding * 4;
-  
-  // background-color: #f7f5f7;
-  // box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+.form-container {
+  &.login, &.advertise-job {
+    padding: $primary-padding * 4;
+  }
 }
 
 .form-container {
@@ -195,11 +204,21 @@ input.mini-input {
 .no-border-left {
   border-top-left-radius: unset !important;
   border-bottom-left-radius: unset !important;
+  @media only screen and (max-width: 760px) {
+    border-radius: unset !important;
+    border-bottom-left-radius: $primary-radius !important;
+    border-bottom-right-radius: $primary-radius !important;
+  }
 }
 
 .no-border-right {
   border-top-right-radius: unset !important;
   border-bottom-right-radius: unset !important;
+  @media only screen and (max-width: 760px) {
+    border-radius: unset !important;
+    border-bottom-left-radius: $primary-radius !important;
+    border-bottom-right-radius: $primary-radius !important;
+  }
 }
 
 .tags-container {
@@ -272,4 +291,10 @@ button {
   margin-left: $primary-margin;
   width: 100%;
 
+}
+
+@media only screen and (max-width: 760px) {
+  .update-data-buttons {
+    display: none;
+  }
 }

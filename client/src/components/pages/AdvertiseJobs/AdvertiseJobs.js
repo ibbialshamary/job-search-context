@@ -65,7 +65,7 @@ const AdvertiseJobs = (props) => {
     <>
       <div className="flex-box-container">
         <div className={classes["advertise-jobs-container"]}>
-          <div className="form-container login">
+          <div className="form-container advertise-job">
             <div className="titles-container">
               <h1>Advertise a Job</h1>
               <p>Get enough applicants in as little as 2 days</p>
