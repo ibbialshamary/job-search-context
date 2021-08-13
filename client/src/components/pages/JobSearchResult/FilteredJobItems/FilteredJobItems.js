@@ -88,12 +88,14 @@ const JobItem = (props) => {
 
   const applyNowHandler = (job) => {
     setSelectedJob(job);
-    const userProfile = userDetails.profile[0];
-
-    // if userProfile is valid and there is an applicant property, call the method to use profile
-    userProfile && userProfile.applicant
-      ? generateSetUpProfile(userDetails.profile[0])
-      : props.onOpenApplicationFormModal();
+    console.log(selectedJob);
+    if (selectedJob) {
+      const userProfile = userDetails.profile[0];
+      // if userProfile is valid and there is an applicant property, call the method to use profile
+      userProfile && userProfile.applicant
+        ? generateSetUpProfile(userDetails.profile[0])
+        : props.onOpenApplicationFormModal();
+    }
   };
 
   const fetchFilteredJobsNonContext = () => {

@@ -16,6 +16,12 @@ const Router = (props) => {
 
   return (
     <BrowserRouter>
+      <div className="disclaimer-container">
+        <p>
+          Sorry, responsiveness for smaller devices is only available on the
+          Redux version of this website
+        </p>
+      </div>
       <Navbar />
       <Switch>
         {loggedIn === false && (
@@ -28,7 +34,9 @@ const Router = (props) => {
             </Route>
             <Route path="/login">
               <div>
-                <Login onClickForgotPassword={props.onOpenForgotPasswordModal} />
+                <Login
+                  onClickForgotPassword={props.onOpenForgotPasswordModal}
+                />
               </div>
             </Route>
           </>
@@ -42,7 +50,9 @@ const Router = (props) => {
               <LandingPage />
             </Route>
             <Route path="/job-search-result">
-              <JobSearchResult onClickApply={props.onOpenApplicationFormModal} />
+              <JobSearchResult
+                onClickApply={props.onOpenApplicationFormModal}
+              />
             </Route>
             <Route path="/advertise-jobs">
               <AdvertiseJobs />
