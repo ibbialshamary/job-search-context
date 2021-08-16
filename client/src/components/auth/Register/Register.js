@@ -86,7 +86,7 @@ const Register = () => {
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log("Checking form validity");
+      // console.log("Checking form validity");
       setFormIsValid(
         email.includes("@") &&
           email.trim().length > 6 &&
@@ -101,7 +101,7 @@ const Register = () => {
     }, 500);
 
     return () => {
-      console.log("Clean up");
+      // console.log("Clean up");
       // setJoinButtonText("Checking form validity");
       clearTimeout(identifier);
     };
@@ -118,7 +118,7 @@ const Register = () => {
             </p>
           </div>
 
-          <div className="google-register-container">
+          {/* <div className="google-register-container">
             <Button class="google-register-button">
               <img
                 width="28px"
@@ -129,7 +129,7 @@ const Register = () => {
             </Button>
 
             <p>or</p>
-          </div>
+          </div> */}
           <form onSubmit={(e) => e.preventDefault()}>
             <div
               className={`${classes.control} ${

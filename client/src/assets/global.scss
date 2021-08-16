@@ -1,9 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 @import "./variables.scss";
 
+
 .disclaimer-container {
   display: none;
-  @media only screen and (max-width: 765px) {
+}
+
+.router-container {
+  display: block;
+}
+
+@media only screen and (max-width: 765px) {
+  .disclaimer-container {
     display: block;
     width: 100%;
     height: 100vh;
@@ -11,6 +19,10 @@
     background-color: white;
     padding: 20px;
     z-index: 1;
+  }
+
+  .router-container {
+    display: none;
   }
 }
 

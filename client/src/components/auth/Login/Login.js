@@ -70,7 +70,7 @@ const Login = (props) => {
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log("Checking form validity");
+      // console.log("Checking form validity");
       setFormIsValid(
         email.includes("@") && email.trim().length > 6 && password.length > 6
       );
@@ -82,7 +82,7 @@ const Login = (props) => {
     }, 500);
 
     return () => {
-      console.log("Clean up");
+      // console.log("Clean up");
       setJoinButtonText("Checking form validity");
       clearTimeout(identifier);
     };
@@ -141,7 +141,7 @@ const Login = (props) => {
                 Login
               </Button>
               <br />
-              <Button class="google-register-button">
+              {/* <Button class="google-register-button">
                 <img
                   width="28px"
                   src="https://img.icons8.com/color-glass/48/000000/google-logo.png"
@@ -153,7 +153,7 @@ const Login = (props) => {
               <Button class="secondary" onClick={showModal}>
                 Forgotten Password? Reset Here
               </Button>
-              <br />
+              <br /> */}
 
               <div className="status-message-container">
                 {isStatusSuccessful === false && statusMessage && (

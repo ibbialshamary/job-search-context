@@ -71,6 +71,7 @@ const JobItem = (props) => {
       )
       .then(() => {
         getFilteredJobs("all", "all");
+        getRecentJobs();
         setIsStatusSuccessful(true);
         showModal();
         setStatusMessage(
@@ -88,7 +89,9 @@ const JobItem = (props) => {
 
   const applyNowHandler = (job) => {
     setSelectedJob(job);
-    console.log(selectedJob);
+  };
+
+  useEffect(() => {
     if (selectedJob) {
       const userProfile = userDetails.profile[0];
       // if userProfile is valid and there is an applicant property, call the method to use profile
@@ -96,7 +99,7 @@ const JobItem = (props) => {
         ? generateSetUpProfile(userDetails.profile[0])
         : props.onOpenApplicationFormModal();
     }
-  };
+  }, [selectedJob]);
 
   const fetchFilteredJobsNonContext = () => {
     getFilteredJobs("all", "all");

@@ -22,50 +22,52 @@ const Router = (props) => {
           Redux version of this website
         </p>
       </div>
-      <Navbar />
-      <Switch>
-        {loggedIn === false && (
-          <>
-            <Route exact path="/">
-              <About />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/login">
-              <div>
-                <Login
-                  onClickForgotPassword={props.onOpenForgotPasswordModal}
+      <div className="router-container">
+        <Navbar />
+        <Switch>
+          {loggedIn === false && (
+            <>
+              <Route exact path="/">
+                <About />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <Route path="/login">
+                <div>
+                  <Login
+                    onClickForgotPassword={props.onOpenForgotPasswordModal}
+                  />
+                </div>
+              </Route>
+            </>
+          )}
+          {loggedIn === true && (
+            <>
+              <Route exact path="/">
+                <LandingPage />
+              </Route>
+              <Route path="/search-jobs">
+                <LandingPage />
+              </Route>
+              <Route path="/job-search-result">
+                <JobSearchResult
+                  onClickApply={props.onOpenApplicationFormModal}
                 />
-              </div>
-            </Route>
-          </>
-        )}
-        {loggedIn === true && (
-          <>
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
-            <Route path="/search-jobs">
-              <LandingPage />
-            </Route>
-            <Route path="/job-search-result">
-              <JobSearchResult
-                onClickApply={props.onOpenApplicationFormModal}
-              />
-            </Route>
-            <Route path="/advertise-jobs">
-              <AdvertiseJobs />
-            </Route>
-            <Route path="/my-jobs">
-              <AvailableJobs />
-            </Route>
-            <Route path="/profile">
-              <Profile />
-            </Route>
-          </>
-        )}
-      </Switch>
+              </Route>
+              <Route path="/advertise-jobs">
+                <AdvertiseJobs />
+              </Route>
+              <Route path="/my-jobs">
+                <AvailableJobs />
+              </Route>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+            </>
+          )}
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 };

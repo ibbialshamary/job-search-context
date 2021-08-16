@@ -33,9 +33,9 @@ const Navbar = () => {
         <NavMenu>
           {loggedIn === false && (
             <>
-              <NavLink to="/preview" activeStyle>
+              {/* <NavLink to="/preview" activeStyle>
                 Preview
-              </NavLink>
+              </NavLink> */}
               <NavLink to="/register" activeStyle>
                 Register
               </NavLink>
