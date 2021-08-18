@@ -87,7 +87,8 @@ const Profile = () => {
       };
 
       await axios.put(
-        `http://localhost:5000/authenticate/users/${loggedInUser}`,
+        // `http://localhost:5000/authenticate/users/${loggedInUser}`,
+        `https://job-search-context.herokuapp.com/authenticate/users/${loggedInUser}`,
         profile
       );
 
@@ -100,6 +101,7 @@ const Profile = () => {
       );
     }
   };
+
 
   return (
     <>
@@ -147,7 +149,7 @@ const Profile = () => {
                   className="no-resize"
                   onChange={coverLetterChangeHandler}
                   value={
-                    userDetails && userDetails.profile
+                    userDetails && userDetails.profile && userDetails.profile[0]
                       ? userDetails.profile[0].coverLetter
                       : coverLetter
                   }
@@ -165,7 +167,7 @@ const Profile = () => {
                   placeholder="Manchester"
                   onChange={locationChangeHandler}
                   value={
-                    userDetails && userDetails.profile
+                    userDetails && userDetails.profile && userDetails.profile[0]
                       ? userDetails.profile[0].location
                       : location
                   }
@@ -181,7 +183,7 @@ const Profile = () => {
                   placeholder="https://github.com/mygithubprofile"
                   onChange={urlsChangeHandler}
                   value={
-                    userDetails && userDetails.profile
+                    userDetails && userDetails.profile && userDetails.profile[0]
                       ? userDetails.profile[0].urls
                       : urls
                   }

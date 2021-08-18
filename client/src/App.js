@@ -37,11 +37,6 @@ function App() {
             onCloseForgotPasswordModal={hideForgottenPasswordHandler}
           />
         )}
-        {applicationFormIsShwon && (
-          <ApplicationForm
-            onCloseApplicationFormModal={hideApplicationFormHandler}
-          />
-        )}
         <Router
           onOpenForgotPasswordModal={showForgottenPasswordHandler}
           onOpenApplicationFormModal={showApplicationFormHandler}

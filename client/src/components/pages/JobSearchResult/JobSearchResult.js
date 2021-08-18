@@ -107,7 +107,7 @@ const JobSearchResult = (props) => {
             <br />
             <br />
           </div>
-          <FilteredJobItems onOpenApplicationFormModal={props.onClickApply} />
+          <FilteredJobItems />
           <br />
         </div>
       </div>

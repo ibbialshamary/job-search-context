@@ -8,7 +8,8 @@ const Logout = (props) => {
   const history = useHistory();
 
   const logout = async () => {
-    await axios.get("http://localhost:5000/authenticate/logout");
+    // await axios.get("http://localhost:5000/authenticate/logout");
+    await axios.get("https://job-search-context.herokuapp.com/authenticate/logout");
     await getLoggedIn();
     history.push("/login");
   };

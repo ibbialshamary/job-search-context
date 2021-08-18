@@ -72,7 +72,8 @@ const Register = () => {
       };
 
       await axios.post(
-        "http://localhost:5000/authenticate/register",
+        // "http://localhost:5000/authenticate/register",
+        "https://job-search-context.herokuapp.com/authenticate/register",
         registerData
       );
       // commented out as user should be redirected to login page rather than be logged in

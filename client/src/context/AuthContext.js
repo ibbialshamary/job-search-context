@@ -26,13 +26,15 @@ const AuthContextProvider = (props) => {
 
   // modal
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [modalName, setModalName] = useState(false);
 
   // methods
 
   // methods starting from here work together
   const getJobApplications = async (email) => {
     const jobApplicationsByEmailResponse = await axios.get(
-      `http://localhost:5000/job-application/${email}`
+      // `http://localhost:5000/job-application/${email}`
+      `https://job-search-context.herokuapp.com/job-application/${email}`
     );
     setUserJobApplications(jobApplicationsByEmailResponse.data);
   };
@@ -40,14 +42,16 @@ const AuthContextProvider = (props) => {
   const getAdvertisedAndAppliedToJobs = async (email) => {
     if (email) {
       const jobsByReferenceResponse = await axios.get(
-        `http://localhost:5000/jobs/jobs-applied-and-advertised/${email}`
+        // `http://localhost:5000/jobs/jobs-applied-and-advertised/${email}`
+        `https://job-search-context.herokuapp.com/jobs/jobs-applied-and-advertised/${email}`
       );
       setMyJobs(jobsByReferenceResponse.data);
     }
   };
   // methods working together ends here
 
-  const showModal = () => {
+  const showModal = (modalName) => {
+    setModalName(modalName);
     setModalIsVisible(true);
   };
 
@@ -57,7 +61,8 @@ const AuthContextProvider = (props) => {
 
   const getLoggedIn = async () => {
     const loggedInResponse = await axios.get(
-      "http://localhost:5000/authenticate/loggedIn"
+      // "http://localhost:5000/authenticate/loggedIn"
+      "https://job-search-context.herokuapp.com/authenticate/loggedIn"
     );
     setLoggedIn(loggedInResponse.data.loggedIn);
     setLoggedInUser(loggedInResponse.data.loggedInUser);
@@ -67,20 +72,23 @@ const AuthContextProvider = (props) => {
   const getUserDetails = async (email) => {
     if (email) {
       const userDetailsResponse = await axios.get(
-        `http://localhost:5000/authenticate/user-details/${email}`
+        // `http://localhost:5000/authenticate/user-details/${email}`
+        `https://job-search-context.herokuapp.com/authenticate/user-details/${email}`
       );
       setUserDetails(userDetailsResponse.data);
     }
   };
 
   const getAllJobs = async () => {
-    const allJobsResponse = await axios.get("http://localhost:5000/jobs");
+    // const allJobsResponse = await axios.get("http://localhost:5000/jobs");
+    const allJobsResponse = await axios.get("https://job-search-context.herokuapp.com/jobs");
     setAllJobs(allJobsResponse.data);
   };
 
   const getFilteredJobs = async (location, title) => {
     const filteredJobsResponse = await axios.get(
-      `http://localhost:5000/jobs/filter/${location}/${title}`
+      // `http://localhost:5000/jobs/filter/${location}/${title}`
+      `https://job-search-context.herokuapp.com/jobs/filter/${location}/${title}`
     );
     setFilteredJobs(filteredJobsResponse.data);
   };
@@ -116,7 +124,8 @@ const AuthContextProvider = (props) => {
 
   const getRecentJobs = async () => {
     const recentJobs = await axios.get(
-      "http://localhost:5000/jobs/recent-jobs/recent"
+      // "http://localhost:5000/jobs/recent-jobs/recent"
+      "https://job-search-context.herokuapp.com/jobs/recent-jobs/recent"
     );
     setRecentJobs(recentJobs.data);
     setRecentJobsCount(recentJobs.data.length);
@@ -158,6 +167,7 @@ const AuthContextProvider = (props) => {
         showModal,
         hideModal,
         modalIsVisible,
+        modalName
       }}
     >
       {props.children}

@@ -26,7 +26,8 @@ const MyJobs = (props) => {
   // methods
   const deleteJobHandler = async (jobId) => {
     try {
-      await axios.delete(`http://localhost:5000/jobs/${jobId}`);
+      // await axios.delete(`http://localhost:5000/jobs/${jobId}`);
+      await axios.delete(`https://job-search-context.herokuapp.com/jobs/${jobId}`);
       refreshMyJobsHandler();
     } catch (error) {
       console.log(error);

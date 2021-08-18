@@ -50,7 +50,8 @@ const AdvertiseJobs = (props) => {
         advertiserEmail
       };
 
-      await axios.post("http://localhost:5000/jobs", jobData);
+      // await axios.post("http://localhost:5000/jobs", jobData);
+      await axios.post("https://job-search-context.herokuapp.com/jobs", jobData);
       fetchFilteredJobsNonContext();
     } catch (error) {
       setStatusMessage(error.response.data.errorMessage);

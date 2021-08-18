@@ -6,8 +6,9 @@ import { FaHotjar as HotIcon, FaPoundSign as SalaryIcon } from "react-icons/fa";
 import Button from "../../../layout/Button/Button";
 import axios from "axios";
 import Modal from "../../../layout/Modal/Modal";
+import ApplicationForm from "../../ApplicationForm/ApplicationForm";
 
-const JobItem = (props) => {
+const JobItem = () => {
   // state
   const [isFilteredJobsResultEmpty, setIsFilteredJobsResultEmpty] =
     useState(false);
@@ -15,6 +16,7 @@ const JobItem = (props) => {
   const [statusMessage, setStatusMessage] = useState("");
   const [isStatusSuccessful, setIsStatusSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [requiresUpdating, setRequiresUpdating] = useState(false);
 
   // context
   const {
@@ -22,18 +24,16 @@ const JobItem = (props) => {
     getFilteredJobs,
     getRecentJobs,
     daysPostedCalculator,
-    isProfileSetUp,
     setSelectedJob,
     selectedJob,
     loggedInUser,
-    getJobApplications,
-    jobApplications,
     recentJobs,
     getUserDetails,
     userDetails,
     showModal,
     hideModal,
     modalIsVisible,
+    modalName,
   } = useContext(AuthContext);
 
   // effects
@@ -66,14 +66,15 @@ const JobItem = (props) => {
     setIsLoading(true);
     await axios
       .post(
-        `http://localhost:5000/job-application/${loggedInUser}`,
+        // `http://localhost:5000/job-application/${loggedInUser}`,
+        `https://job-search-context.herokuapp.com/job-application/${loggedInUser}`,
         profileArrayJobReference
       )
       .then(() => {
         getFilteredJobs("all", "all");
         getRecentJobs();
         setIsStatusSuccessful(true);
-        showModal();
+        showModal("applyUsingProfile");
         setStatusMessage(
           "Successfully submitted application, jobs have been refreshed"
         );
@@ -81,23 +82,32 @@ const JobItem = (props) => {
       })
       .catch((err) => {
         setIsStatusSuccessful(true);
-        showModal();
+        showModal("applyUsingProfile");
         setIsLoading(false);
         setStatusMessage(`Failed to submit application`);
       });
   };
 
   const applyNowHandler = (job) => {
-    setSelectedJob(job);
+    // if the selected job has changed, then we can set requires updating
+    // this is an alternative to getting the previous state and comparing it to the current selectedJob state
+    // will not render as long as the selectedJob has not changed
+
+    if (selectedJob !== job) {
+      setRequiresUpdating(true);
+      setSelectedJob(job);
+    }
   };
 
   useEffect(() => {
-    if (selectedJob) {
+    if (requiresUpdating && selectedJob) {
+      console.log("test");
       const userProfile = userDetails.profile[0];
       // if userProfile is valid and there is an applicant property, call the method to use profile
       userProfile && userProfile.applicant
         ? generateSetUpProfile(userDetails.profile[0])
-        : props.onOpenApplicationFormModal();
+        : showModal("applicationForm");
+      // setRequiresUpdating(false);
     }
   }, [selectedJob]);
 
@@ -123,7 +133,8 @@ const JobItem = (props) => {
 
   return (
     <>
-      {statusMessage && modalIsVisible && (
+      {modalName === "applicationForm" && <ApplicationForm />}
+      {modalName === "applyUsingProfile" && statusMessage && modalIsVisible && (
         <Modal onClose={hideModal}>
           {" "}
           <div className="status-message-container">

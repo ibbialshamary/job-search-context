@@ -9,9 +9,12 @@ import { v4 as uuid } from "uuid";
 
 const ApplicationForm = (props) => {
   // context variables
-  const { selectedJob } = useContext(AuthContext);
-  const { loggedInUser } = useContext(AuthContext);
-  const { getAdvertisedAndAppliedToJobs } = useContext(AuthContext);
+  const {
+    selectedJob,
+    hideModal,
+    loggedInUser,
+    getAdvertisedAndAppliedToJobs,
+  } = useContext(AuthContext);
 
   // states
   const [nickname, setNickname] = useState();
@@ -90,7 +93,8 @@ const ApplicationForm = (props) => {
       };
 
       await axios.post(
-        `http://localhost:5000/job-application/${loggedInUser}`,
+        // `http://localhost:5000/job-application/${loggedInUser}`,
+        `https://job-search-context.herokuapp.com/job-application/${loggedInUser}`,
         applicationFormData
       );
 
@@ -109,116 +113,127 @@ const ApplicationForm = (props) => {
   };
 
   return (
-    <Modal onClose={props.onCloseApplicationFormModal}>
-      <div className="form-container">
-        <strong>
-          <h1>
-            Application Form for a {selectedJob.title} at {selectedJob.company}
-          </h1>
-          <p>
-            Since you don't have a profile set up, <br />
-            please fill in some of the optional fields and all the required{" "}
-            <span className="hot">*</span>
-          </p>
-        </strong>
-        <p></p>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="use-nickname" value={nickname}>
-            Use a nickname?
-          </label>
-          <input
-            id="use-nickname"
-            type="text"
-            placeholder="Ibbi"
-            value={nickname}
-            onChange={nicknameChangeHandler}
-          />
-          <br />
+    <>
+      {selectedJob && (
+        <>
+          <Modal onClose={hideModal}>
+            <div className="form-container">
+              <strong>
+                <h1>
+                  Application Form for a {selectedJob.title} at{" "}
+                  {selectedJob.company}
+                </h1>
+                <p>
+                  Since you don't have a profile set up, <br />
+                  please fill in some of the optional fields and all the
+                  required <span className="hot">*</span>
+                </p>
+              </strong>
+              <p></p>
+              <form onSubmit={(e) => e.preventDefault()}>
+                <label htmlFor="use-nickname" value={nickname}>
+                  Use a nickname?
+                </label>
+                <input
+                  id="use-nickname"
+                  type="text"
+                  placeholder="Ibbi"
+                  value={nickname}
+                  onChange={nicknameChangeHandler}
+                />
+                <br />
 
-          <label htmlFor="upload-cv">
-            CV <span className="hot">*</span>
-          </label>
-          <input
-            id="upload-cv"
-            type="file"
-            accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            className="no-resize"
-            onChange={cvChangeHandler}
-          />
-          <br />
-          <br />
+                <label htmlFor="upload-cv">
+                  CV <span className="hot">*</span>
+                </label>
+                <input
+                  id="upload-cv"
+                  type="file"
+                  accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  className="no-resize"
+                  onChange={cvChangeHandler}
+                />
+                <br />
+                <br />
 
-          <label htmlFor="cover-letter">Cover Letter</label>
-          <textarea
-            id="cover-letter"
-            type="text"
-            className="no-resize"
-            value={coverLetter}
-            onChange={coverLetterChangeHandler}
-          />
-          <br />
-          <br />
+                <label htmlFor="cover-letter">Cover Letter</label>
+                <textarea
+                  id="cover-letter"
+                  type="text"
+                  className="no-resize"
+                  value={coverLetter}
+                  onChange={coverLetterChangeHandler}
+                />
+                <br />
+                <br />
 
-          <label htmlFor="location">
-            Location <span className="hot">*</span>
-          </label>
-          <input
-            id="location"
-            type="text"
-            className="no-resize"
-            placeholder="Manchester"
-            value={location}
-            onChange={locationChangeHandler}
-          />
-          <br />
-          <br />
+                <label htmlFor="location">
+                  Location <span className="hot">*</span>
+                </label>
+                <input
+                  id="location"
+                  type="text"
+                  className="no-resize"
+                  placeholder="Manchester"
+                  value={location}
+                  onChange={locationChangeHandler}
+                />
+                <br />
+                <br />
 
-          <label htmlFor="third-party-urls">Third Party URLs</label>
-          <input
-            id="third-party-urls"
-            type="text"
-            className="no-resize"
-            placeholder="https://github.com/mygithubprofile"
-            value={urls}
-            onChange={urlsChangeHandler}
-          />
-          <br />
-          <br />
+                <label htmlFor="third-party-urls">Third Party URLs</label>
+                <input
+                  id="third-party-urls"
+                  type="text"
+                  className="no-resize"
+                  placeholder="https://github.com/mygithubprofile"
+                  value={urls}
+                  onChange={urlsChangeHandler}
+                />
+                <br />
+                <br />
 
-          <Button onClick={submitJobApplicationHandler}>
-            Submit Application
-          </Button>
-          <br />
-          <Button class="secondary" onClick={props.onCloseApplicationFormModal}>
-            Go Back
-          </Button>
+                <Button onClick={submitJobApplicationHandler}>
+                  Submit Application
+                </Button>
+                <br />
+                <Button class="secondary" onClick={hideModal}>
+                  Go Back
+                </Button>
 
-          <div className="file-upload status-message-container">
-            {isUploadStatusSuccessful === true && uploadStatusMessage && (
-              <p className="file-upload status-message success">
-                {uploadStatusMessage}
-              </p>
-            )}
-            {isUploadStatusSuccessful === undefined && uploadStatusMessage && (
-              <p className="file-upload status-message pending">{uploadStatusMessage}</p>
-            )}
-            {isUploadStatusSuccessful === false && uploadStatusMessage && (
-              <p className="file-upload status-message success">
-                {uploadStatusMessage}
-              </p>
-            )}
-          </div>
-          <div className="status-message-container">
-            {isStatusSuccessful === true && statusMessage && (
-              <p className="status-message success">{statusMessage}</p>
-            )}
-            {isStatusSuccessful === false && statusMessage && (
-              <p className="status-message error">{statusMessage}</p>
-            )}
-          </div>
-        </form>
-      </div>
-    </Modal>
+                <div className="file-upload status-message-container">
+                  {isUploadStatusSuccessful === true && uploadStatusMessage && (
+                    <p className="file-upload status-message success">
+                      {uploadStatusMessage}
+                    </p>
+                  )}
+                  {isUploadStatusSuccessful === undefined &&
+                    uploadStatusMessage && (
+                      <p className="file-upload status-message pending">
+                        {uploadStatusMessage}
+                      </p>
+                    )}
+                  {isUploadStatusSuccessful === false &&
+                    uploadStatusMessage && (
+                      <p className="file-upload status-message success">
+                        {uploadStatusMessage}
+                      </p>
+                    )}
+                </div>
+                <div className="status-message-container">
+                  {isStatusSuccessful === true && statusMessage && (
+                    <p className="status-message success">{statusMessage}</p>
+                  )}
+                  {isStatusSuccessful === false && statusMessage && (
+                    <p className="status-message error">{statusMessage}</p>
+                  )}
+                </div>
+              </form>
+            </div>
+          </Modal>
+        </>
+      )}
+    </>
   );
 };
 

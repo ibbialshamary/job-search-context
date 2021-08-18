@@ -71,6 +71,8 @@ router.post("/register", async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       })
       .send();
   } catch (err) {
@@ -113,8 +115,18 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ user: existingUser._id }, process.env.JWT_SECRET);
 
     // send token in HTTP only cookie
-    res.cookie("loggedInUser", existingUser.email, { httpOnly: true });
-    res.cookie("token", token, { httpOnly: true }).send();
+    res.cookie("loggedInUser", existingUser.email, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      })
+      .send();
   } catch (err) {
     res.status(500).send();
   }
@@ -162,8 +174,20 @@ router.get("/users", async (req, res) => {
 
 // logout endpoint
 router.get("/logout", (req, res) => {
-  res.cookie("loggedInUser", "", { httpOnly: true, expires: new Date(0) });
-  res.cookie("token", "", { httpOnly: true, expires: new Date(0) }).send();
+  res.cookie("loggedInUser", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    expires: new Date(0),
+  });
+  res
+    .cookie("token", "", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      expires: new Date(0),
+    })
+    .send();
 });
 
 router.get("/loggedIn", (req, res) => {
